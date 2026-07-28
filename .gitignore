@@ -1,0 +1,33 @@
+# Material bruto e pesado — não versionar
+_raw/
+*.psd
+*.ai
+
+# Segredos — NUNCA versionar (só o .example)
+db-config.php
+.env
+.env.*
+!.env.example
+*-secret*
+*credenciais*
+
+# Build/infra
+node_modules/
+.vercel/
+.DS_Store
+*.log
+
+# Uploads reais do servidor (versionar só placeholders se precisar)
+uploads/
+
+# Material-fonte e working copy — fica local + Drive, não no repo (padrão BuildV).
+# O repo versiona só a pasta de deploy (deploy-vercel/ ou deploy-raiz/), quando existir.
+imagens/
+Marca/
+Copys/
+design-system/
+Site/
+brief-pack.md
+
+# Claude Code local settings
+.claude/settings.local.json
