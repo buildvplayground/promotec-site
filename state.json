@@ -3,34 +3,36 @@
  "slug": "promotec",
  "pasta": "promotec",
  "segmento": "Construção e engenharia industrial (construção industrial, manutenção industrial e predial, construção de galpões) — B2B",
- "etapa_atual": 3,
+ "etapa_atual": 8,
  "etapas": [
   {"n": 1, "nome": "Extrair Drive", "status": "done"},
   {"n": 2, "nome": "Pastas", "status": "done"},
-  {"n": 3, "nome": "Design system", "status": "doing"},
+  {"n": 3, "nome": "Design system", "status": "done"},
   {"n": 4, "nome": "Copy", "status": "done"},
-  {"n": 5, "nome": "Front-end", "status": "pending"},
-  {"n": 6, "nome": "Ajustes", "status": "pending"},
-  {"n": 7, "nome": "Tags", "status": "pending"},
-  {"n": 8, "nome": "Revisão", "status": "pending"},
-  {"n": 9, "nome": "Deploy", "status": "pending"}
+  {"n": 5, "nome": "Front-end", "status": "done"},
+  {"n": 6, "nome": "Ajustes", "status": "done"},
+  {"n": 7, "nome": "Tags", "status": "done"},
+  {"n": 8, "nome": "Revisão", "status": "doing"},
+  {"n": 9, "nome": "Deploy", "status": "blocked"}
  ],
  "pendencias": [
-  "Hospedagem indefinida (Vercel ou Hostinger/WordPress) — site em HTML estático como default",
-  "WhatsApp comercial definitivo — placeholder 5511999999999 em uso em todos os CTAs",
-  "Confirmar ano de fundação da empresa (2014 na apresentação antiga vs. 2018 na apresentação 2026)",
-  "IDs de GTM/GA4/Meta Pixel/Google Ads — não fornecidos, tags não instaladas",
+  "Hospedagem indefinida (Vercel ou Hostinger/WordPress) — site construído como HTML estático (default quando indefinido)",
+  "WhatsApp comercial definitivo — placeholder 5511999999999 em uso em todos os CTAs (constante única em Site/js/app.js)",
+  "Confirmar ano de fundação da empresa (2014 na apresentação antiga vs. 2018 na apresentação 2026 — usamos 2018)",
+  "IDs de GTM/GA4/Meta Pixel/Google Ads — não fornecidos, tags não instaladas (módulos LGPD já emitem evento no dataLayer para quando as tags entrarem)",
   "ID do Merlin Popup — não fornecido, não instalado",
   "Domínio final do site",
   "Secrets de deploy (FTP Hostinger ou projeto Vercel) — aguardando definição de hospedagem",
-  "Criar banco MySQL + preencher db-config.php (se backend PHP for necessário)",
-  "Números/métricas reais para seção de estatísticas (anos de mercado, obras entregues) — não fornecidos, não inventados"
+  "Criar banco MySQL + preencher db-config.php a partir do db-config.example.php (backend PHP funciona em modo degradado sem banco: valida, trata upload e grava em log local uploads/submissions.log)",
+  "Trocar a senha de admin.php (PROJETO_ADMIN_PASS) antes de publicar",
+  "Números/métricas reais para seção de estatísticas (anos de mercado, obras entregues) — não fornecidos, não inventados; usamos só o verificável (18 clientes, 8 setores)",
+  "PHP (form-handler.php/admin.php) não foi testado em execução real — não há runtime PHP nesta máquina de desenvolvimento; validar sintaxe/comportamento no servidor ou com PHP local antes de publicar"
  ],
  "links": {
   "drive": "https://drive.google.com/drive/u/0/folders/1qXVZGh0Jcdxnmv_200jIW868yn3lGu1a",
-  "repo": null,
-  "preview": null,
+  "repo": "https://github.com/dev-buildv/promotec-site",
+  "preview": "http://localhost:8791/index.html",
   "dominio": null
  },
- "atualizado_em": "2026-07-28"
+ "atualizado_em": "2026-07-29"
 }

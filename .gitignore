@@ -31,3 +31,6 @@ brief-pack.md
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Scaffolding dos geradores de página (Python) — não é o site em si
+_build_tmp/

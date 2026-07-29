@@ -45,22 +45,54 @@ Pasta do Drive: https://drive.google.com/drive/u/0/folders/1qXVZGh0Jcdxnmv_200jI
 ## Checklist do pipeline
 - [x] 1. Material extraído do Drive (rclone, pasta completa ~1,4GB)
 - [x] 2. Pastas organizadas (scaffold-projeto)
-- [ ] 2b. Repositório GitHub (dev-buildv/promotec-site, privado)
-- [ ] 3. Design system (skill: design-system)
-- [ ] 4. Copy dos wireframes extraída (skill: extrair-copy) — feito via apresentações
-      institucionais + quadro de estratégia (não havia wireframes desenhados)
-- [ ] 5. Front-end criado (gerar-frontend + revisar-frontend)
-- [ ] 6. Ajustes finais (responsivo, imagens tratadas, animações)
-- [ ] 7. Tags instaladas (skill: instalar-tags) + módulos LGPD
-- [ ] 8. Revisão humana (preview local, aguardando domínio/hospedagem do usuário)
+- [x] 2b. Repositório GitHub (dev-buildv/promotec-site, privado) — https://github.com/dev-buildv/promotec-site
+- [x] 3. Design system (paleta/tipografia da marca real + direção de estilo via ui-ux-pro-max)
+- [x] 4. Copy estruturada — feito via apresentações institucionais + quadro de
+      estratégia (não havia wireframes desenhados nem site antigo no Drive)
+- [x] 5. Front-end criado — 7 páginas em `Site/` (Home, 4 serviços, Sobre, Portfólio),
+      sistema de movimento aplicado, portfólio com lightbox de 6 obras reais
+- [x] 6. Ajustes finais — imagens tratadas para `.webp` (~899MB → ~16MB, -98%),
+      responsividade auditada por medição (320/360/375/768/1440px, overflow zero)
+- [x] 7. Módulos LGPD instalados (cookie banner + política de privacidade + páginas
+      de Fornecedores/Trabalhe Conosco + backend PHP) — tags GTM/Merlin puladas
+      (sem IDs do cliente)
+- [~] 8. Revisão humana — em andamento. **Rodada 1 (29/jul/2026) aplicada:**
+      fontes trocadas para Inter (headings) + Krub (corpo) com hierarquia por peso
+      (800/700/600/400); botões com cantos quase retos (4px, sem pill); hover do
+      CTA vermelho invertido (fundo branco/texto vermelho) e texto de botões nunca
+      escurece no hover (neutralizado o `a:hover` preto herdado do motion.css);
+      traço decorativo do eyebrow removido; recortes diagonais (`--cut`) entre o
+      hero e as seções escuras. Reauditado: zero overflow 320px/1280px.
 - [ ] 9. Deploy (bloqueado — hospedagem/domínio/secrets pendentes do usuário)
 
+## Auditoria adversarial (revisar-frontend) — achados corrigidos nesta passada
+- **Bloqueante corrigido:** `js/motion.js` ignorava `prefers-reduced-motion` (linha
+  hardcoded `reduce = false`, apesar do brief-pack afirmar que isso já tinha sido
+  corrigido) — corrigido para respeitar a preferência do sistema, conforme WCAG e
+  padrão BuildV.
+- **Bloqueante corrigido:** `portfolio.html` pulava de H1 direto para H3 nos cards
+  (sem H2 na seção) — adicionado heading da seção.
+- **Ajuste de qualidade:** grid de logos de clientes em `sobre.html` usava 6 colunas
+  fixas (ficaria ilegível em telas pequenas, embora sem causar overflow) — trocado
+  para `auto-fit`/`minmax`, responsivo sem precisar de media query dedicada.
+- **Verificado e confirmado correto** (não é achado): transparência real do logo
+  (`logo-color.webp`/`logo-white.png`), lightbox (abrir/fechar/setas/Esc/contador/
+  scroll travado), menu mobile, dropdown de serviços, modal de privacidade, banner
+  de cookies com evento no `dataLayer`, zero overflow horizontal em 320/360/375/
+  768/1440px nas 9 páginas do site.
+
 ## Pendências do usuário (ver report final para lista completa)
-- Hospedagem (Vercel ou Hostinger/WordPress) — indefinida, site sendo construído
-  como HTML estático (default quando indefinido)
-- WhatsApp comercial definitivo (placeholder em uso: `5511999999999`)
+- Hospedagem (Vercel ou Hostinger/WordPress) — indefinida, site construído como
+  HTML estático (default quando indefinido)
+- WhatsApp comercial definitivo (placeholder em uso: `5511999999999`, constante
+  única em `Site/js/app.js`)
 - Confirmar ano de fundação (2014 ou 2018)
 - IDs de GTM/GA4/Meta Pixel/Google Ads (se quiser instalar tags)
 - ID do Merlin Popup (se quiser)
 - Domínio final
 - Secrets de deploy (FTP ou Vercel) quando a hospedagem for decidida
+- Criar banco MySQL + preencher `db-config.php` a partir do `db-config.example.php`
+  (o backend funciona em modo degradado sem banco: valida e grava em log local)
+- Trocar a senha de admin (`PROJETO_ADMIN_PASS` em `db-config.php`) antes de publicar
+- PHP não testado em execução real (sem runtime PHP nesta máquina de dev) — validar
+  no servidor antes de publicar
