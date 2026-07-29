@@ -63,6 +63,15 @@ Pasta do Drive: https://drive.google.com/drive/u/0/folders/1qXVZGh0Jcdxnmv_200jI
       escurece no hover (neutralizado o `a:hover` preto herdado do motion.css);
       traço decorativo do eyebrow removido; recortes diagonais (`--cut`) entre o
       hero e as seções escuras. Reauditado: zero overflow 320px/1280px.
+      **Rodada 2 (29/jul/2026) aplicada:** seções azuis/escuras ganharam fundo com
+      vida — foto duotone navy da própria obra (teto metálico do Galpão Peron,
+      `assets/img/bg/textura-obra.webp`, 37KB) + vinheta radial, texto branco
+      mantendo contraste AA; CSS/JS versionados com `?v=` em todas as 9 páginas
+      (o cache do navegador segurava o CSS antigo nas páginas internas — os
+      ajustes sempre foram compartilhados via styles.css, agora a atualização
+      chega sem precisar de hard-refresh). Reverificado por medição em Home,
+      Sobre e Manutenção Predial: textura ativa, fontes/botões/recortes ok,
+      zero overflow.
 - [ ] 9. Deploy (bloqueado — hospedagem/domínio/secrets pendentes do usuário)
 
 ## Auditoria adversarial (revisar-frontend) — achados corrigidos nesta passada
