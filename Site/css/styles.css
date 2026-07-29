@@ -32,7 +32,7 @@
   --radius-pill: 999px;
   --cut: clamp(32px, 5vw, 72px);   /* altura do recorte diagonal entre seções */
 
-  --header-h: 84px;
+  --header-h: 96px;
   --ease-house: cubic-bezier(.16,.84,.28,1);
 
   --shadow-card: 0 18px 44px -20px rgba(20,56,95,0.22);
@@ -220,8 +220,8 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:24px; width:100%; }
 
 .brand{ display:inline-flex; align-items:center; flex:0 0 auto; }
-.brand img{ height:40px; width:auto; transition:height .35s var(--ease-house); }
-.site-header[style*="background: rgba"] .brand img{ height:34px; }
+.brand img{ height:60px; width:auto; transition:height .35s var(--ease-house); }
+.site-header[style*="background: rgba"] .brand img{ height:51px; }
 
 .nav-desktop{ display:none; }
 .nav-desktop ul{ display:flex; align-items:center; gap:6px; }
@@ -299,7 +299,7 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
   padding:22px 24px; overflow-y:auto;
 }
 [data-mobile-menu] .mm-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
-[data-mobile-menu] .mm-top img{ height:34px; }
+[data-mobile-menu] .mm-top img{ height:51px; }
 [data-menu-close]{
   display:inline-flex; align-items:center; justify-content:center;
   width:44px; height:44px; border-radius:var(--radius-btn); border:1.5px solid rgba(255,255,255,.4);
@@ -615,6 +615,11 @@ input[type="file"]{ position:absolute; width:1px; height:1px; overflow:hidden; c
   .split-diff{ grid-template-columns:1fr !important; }
   .how-block{ grid-template-columns:1fr !important; }
   .nums-grid{ grid-template-columns:1fr; gap:20px; }
+}
+@media(max-width:640px){
+  /* logo 60px + CTA + hambúrguer não cabem juntos; o CTA segue no hero e
+     dentro do menu mobile (btn-block) — header fica logo + hambúrguer */
+  .header-actions .btn-primary{ display:none; }
 }
 @media(max-width:560px){
   .svc-grid{ grid-template-columns:1fr; }
