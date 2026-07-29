@@ -72,6 +72,23 @@ Pasta do Drive: https://drive.google.com/drive/u/0/folders/1qXVZGh0Jcdxnmv_200jI
       chega sem precisar de hard-refresh). Reverificado por medição em Home,
       Sobre e Manutenção Predial: textura ativa, fontes/botões/recortes ok,
       zero overflow.
+      **Rodada 3 (29/jul/2026) aplicada:** (1) marca-d'água do logo replicada nas
+      páginas internas com posições variadas (diferenciais das 4 páginas de
+      serviço: BR/BL/TR/BL; missão/visão do Sobre: TR; grade do Portfólio: TR);
+      (2) recorte diagonal corrigido — a seção escura agora sobe `--cut` por
+      margem negativa e a cunha do clip revela a COR da seção anterior, não o
+      branco do body (verificado por elementFromPoint: cunha pertence à seção de
+      cima); (3) seção de números reforçada — 3 colunas com barra vermelha à
+      esquerda, números grandes em branco (mono), name-dropping verificável
+      (Gerdau, Voith, Trane), "Em operação desde 2018" e nota com pulso verde
+      "obra em execução neste momento" linkando a TPR no portfólio — nenhuma
+      métrica inventada; (4) espaço vazio gigante entre "O que fazemos" e
+      "Portfólio" eliminado — era a cena de pin (280vh) do motor; pin removido,
+      cards agora entram por reveal normal (gap medido: 0px); (5) menu Serviços
+      virou MEGA MENU com foto real de cada serviço (painel 4 colunas centrado
+      no header, ponte de hover, Esc fecha, aria-current destacado) e o menu
+      mobile ganhou thumbnails 56×36 nos 4 serviços. Reverificado: overflow 0
+      em 320/375/1280 nas páginas tocadas, lightbox e menu mobile intactos.
 - [ ] 9. Deploy (bloqueado — hospedagem/domínio/secrets pendentes do usuário)
 
 ## Auditoria adversarial (revisar-frontend) — achados corrigidos nesta passada
