@@ -17,16 +17,19 @@ node_modules/
 .DS_Store
 *.log
 
-# Uploads reais do servidor (versionar só placeholders se precisar)
-uploads/
+# Uploads reais do servidor (versiona só o .htaccess de proteção)
+uploads/*
+!uploads/.htaccess
+Site/uploads/*
+!Site/uploads/.htaccess
 
-# Material-fonte e working copy — fica local + Drive, não no repo (padrão BuildV).
-# O repo versiona só a pasta de deploy (deploy-vercel/ ou deploy-raiz/), quando existir.
+# Material-fonte — fica local + Drive, não no repo (padrão BuildV).
+# Site/ é versionado (é o entregável; hospedagem ainda indefinida — para
+# Hostinger/estático, Site/ É a própria pasta de deploy).
 imagens/
 Marca/
 Copys/
 design-system/
-Site/
 brief-pack.md
 
 # Claude Code local settings
@@ -34,3 +37,6 @@ brief-pack.md
 
 # Scaffolding dos geradores de página (Python) — não é o site em si
 _build_tmp/
+
+# Estado local de tooling
+.claude/

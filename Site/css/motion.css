@@ -1,0 +1,196 @@
+/* ============================================================================
+   BuildV — Sistema de Movimento (motion.css)
+   Origem: extraido de one-office/dist/index.html (build real de julho/2026).
+   Implementacao de REFERENCIA do sistema de movimento BuildV: codigo testado em
+   producao, copiado sem alteracoes. Nao "melhore" — replique.
+   O prefixo `oo-` e herdado do projeto original (One Office) e pode ser renomeado
+   ao reusar, DESDE QUE motion.css e motion.js sejam renomeados juntos (o JS
+   consulta os mesmos seletores/atributos).
+   Par obrigatorio: este arquivo + motion/motion.js.
+   Dependencias de base assumidas pelo build original (nao incluidas aqui, pois
+   nao sao movimento): `*{box-sizing:border-box}` e `body{overflow-x:clip}` — o
+   `overflow-x:clip` importa para o parallax e o marquee nao gerarem scroll lateral.
+   ============================================================================ */
+
+/* ---- tokens/base usados pelo movimento ---- */
+:root{--oo-green:#9BC53D}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+
+/* ---- transicoes de link ---- */
+a{color:#57544D;text-decoration:none;transition:color .18s ease}
+a:hover{color:#1C1B19}
+
+/* ---- keyframes globais (Ken Burns do hero + marquee) ---- */
+@keyframes oo-kb{from{transform:scale(1.05)}to{transform:scale(1.14)}}
+@keyframes oo-marquee{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* ---- estados de hover / interacao base ---- */
+[data-nav-toggle]{display:none}
+header nav a[data-nav-link]:hover{color:#FBFAF7}
+[data-cta]:hover{background:#E4E0D8 !important}
+[data-ghost]:hover{background:rgba(241,239,234,0.12) !important}
+.oo-card{transition:box-shadow .2s ease, transform .2s ease}
+.oo-card:hover{box-shadow:0 18px 44px rgba(28,27,25,0.12);transform:translateY(-3px)}
+.oo-gal figure img{transition:transform .5s ease}
+.oo-gal figure:hover img{transform:scale(1.05)}
+.oo-contact:hover{color:#FBFAF7 !important}
+.oo-client:hover{opacity:1 !important;filter:grayscale(0) !important}
+
+/* ============ Refinamentos de interação ============ */
+/* Barra de progresso de leitura */
+[data-progress]{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#8C887E,#F1EFEA);z-index:140;transition:width .1s linear;will-change:width}
+/* Navegação: sublinhado animado + seção ativa (scrollspy) */
+header nav a[data-nav-link]{position:relative;transition:color .25s ease}
+header nav a[data-nav-link]::after{content:"";position:absolute;left:0;right:100%;bottom:-7px;height:1.5px;background:var(--oo-green);transition:right .32s cubic-bezier(.4,0,.2,1)}
+header nav a[data-nav-link]:hover::after,header nav a[data-nav-link][aria-current="true"]::after{right:0}
+header nav a[data-nav-link][aria-current="true"]{color:#FBFAF7}
+/* Botões: seta desliza no hover + feedback no toque */
+[data-cta],[data-ghost]{transition:background .25s ease,transform .18s ease,box-shadow .25s ease}
+[data-cta] svg,[data-ghost] svg{transition:transform .3s cubic-bezier(.4,0,.2,1)}
+[data-cta]:hover svg,[data-ghost]:hover svg{transform:translateX(4px)}
+[data-cta]:active,[data-ghost]:active{transform:scale(.975)}
+/* Cards de serviço: elevação e borda no hover */
+.oo-card{transition:box-shadow .28s ease,transform .28s ease,border-color .28s ease}
+.oo-card:hover{box-shadow:0 24px 54px -20px rgba(28,27,25,0.30);transform:translateY(-4px);border-color:rgba(28,27,25,0.22)}
+/* Galeria: zoom + véu inferior no hover, cursor de ampliar */
+.oo-gal figure{cursor:zoom-in;position:relative}
+.oo-gal figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,rgba(20,19,17,0.42));opacity:0;transition:opacity .35s ease;pointer-events:none}
+.oo-gal figure:hover::after{opacity:1}
+/* Marquee pausa ao passar o cursor */
+[data-marquee-track]:hover{animation-play-state:paused}
+/* Formulário: foco refinado */
+/* Lightbox da galeria */
+[data-lightbox]{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,56px);background:rgba(15,14,12,0.93);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity .3s ease}
+[data-lightbox][data-open="true"]{display:flex}
+[data-lightbox].is-visible{opacity:1}
+[data-lightbox] img{max-width:100%;max-height:100%;border-radius:10px;box-shadow:0 40px 90px -30px rgba(0,0,0,0.85);transform:scale(.94);transition:transform .34s cubic-bezier(.2,.7,.2,1),opacity .22s ease;object-fit:contain;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+[data-lightbox].is-visible img{transform:scale(1)}
+[data-lb-close]{position:absolute;top:clamp(14px,3vw,26px);right:clamp(14px,3vw,26px);width:46px;height:46px;border-radius:50%;background:rgba(241,239,234,0.1);border:1px solid rgba(241,239,234,0.25);color:#F1EFEA;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease,transform .2s ease;z-index:3}
+[data-lb-close]:hover{background:rgba(241,239,234,0.2);transform:rotate(90deg)}
+[data-lb-prev],[data-lb-next]{position:absolute;top:50%;margin-top:-27px;width:54px;height:54px;border-radius:50%;background:rgba(241,239,234,0.1);border:1px solid rgba(241,239,234,0.25);color:#F1EFEA;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s ease,transform .2s ease,opacity .2s ease;z-index:3}
+[data-lb-prev]{left:clamp(10px,3vw,32px)}
+[data-lb-next]{right:clamp(10px,3vw,32px)}
+[data-lb-prev]:hover,[data-lb-next]:hover{background:rgba(241,239,234,0.22)}
+[data-lb-prev]:hover{transform:translateX(-3px)}
+[data-lb-next]:hover{transform:translateX(3px)}
+[data-lb-count]{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(14px,3vw,26px);color:#E9E6DF;font-size:13px;letter-spacing:.08em;font-weight:500;background:rgba(20,19,17,0.5);border:1px solid rgba(241,239,234,0.14);padding:6px 14px;border-radius:999px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:3}
+[data-lightbox][data-single="true"] [data-lb-prev],[data-lightbox][data-single="true"] [data-lb-next],[data-lightbox][data-single="true"] [data-lb-count]{display:none}
+@media(max-width:600px){[data-lb-prev],[data-lb-next]{width:46px;height:46px;margin-top:-23px;background:rgba(241,239,234,0.14)}}
+/* Menu mobile: fade do fundo + entrada escalonada dos itens */
+[data-mobile-menu]{opacity:0;transition:opacity .3s ease}
+[data-mobile-menu][data-open="true"]{opacity:1}
+[data-mobile-menu] nav a,[data-mobile-menu]>a[data-menu-close]{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s cubic-bezier(.2,.7,.2,1)}
+[data-mobile-menu][data-open="true"] nav a,[data-mobile-menu][data-open="true"]>a[data-menu-close]{opacity:1;transform:none}
+[data-mobile-menu][data-open="true"] nav a:nth-child(1){transition-delay:.08s}
+[data-mobile-menu][data-open="true"] nav a:nth-child(2){transition-delay:.14s}
+[data-mobile-menu][data-open="true"] nav a:nth-child(3){transition-delay:.20s}
+[data-mobile-menu][data-open="true"] nav a:nth-child(4){transition-delay:.26s}
+[data-mobile-menu][data-open="true"]>a[data-menu-close]{transition-delay:.34s}
+
+/* ---- media queries de layout que sustentam as cenas de movimento ---- */
+/* REVISAR: pode ser especifico da pagina — regras de layout responsivo misturadas com geometria de hero */
+/* ============ Responsividade ============ */
+/* Blocos alternados da Tecnologia: 1 coluna com imagem no topo no mobile */
+@media(max-width:768px){.oo-split{grid-template-columns:1fr !important}.oo-split figure{order:-1}}
+@media(max-width:1080px){[data-nav-desktop]{display:none !important}[data-nav-toggle]{display:inline-flex !important}}@media(max-width:900px){[data-hero-h]{font-size:clamp(40px,11vw,62px) !important}}
+@media(max-width:600px){[data-hero-cta]{width:100%;justify-content:center}[data-hero-actions]{gap:12px}}
+/* Mobile: hero mais enxuto — some com os 3 textos curtos do rodapé da hero e
+   reduz a altura/respiro para o conteúdo ficar mais perto do topo. */
+@media(max-width:640px){
+  [data-hero-list]{display:none !important}
+  [data-hero]{min-height:88svh !important}
+  [data-hero-fx]{padding-top:clamp(80px,16vh,104px) !important;padding-bottom:clamp(48px,9vh,80px) !important}
+}
+/* Hero em telas baixas (landscape de celular): não trava em 100svh */
+@media(max-height:560px) and (orientation:landscape){[data-hero]{min-height:auto !important;padding-top:96px}}
+/* Respeito a prefers-reduced-motion desativado a pedido do cliente: as animações
+   são exibidas para todos os visitantes (ver também "var reduce" no script). */
+
+/* ===== Big numbers ===== */
+[data-num-item]{will-change:opacity,transform}
+/* ===== Atuação: cena com pin (desktop) ===== */
+[data-svc-scene]{position:relative}
+[data-svc-card]{will-change:opacity,transform}
+[data-svc-grid]{grid-template-columns:1fr}
+@media(min-width:600px){[data-svc-grid]{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:900px){[data-svc-grid]{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:900px){
+  [data-svc-scene][data-pin="on"]{height:280vh}
+  [data-svc-scene][data-pin="on"] [data-svc-sticky]{position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(84px,11vh,128px) 0}
+}
+/* ===== Visualizador 360° ===== */
+.oo-360{cursor:grab}
+.oo-360-img{animation:oo-pan 26s ease-in-out infinite alternate;transform-origin:center}
+.oo-360-ui{position:absolute;inset:0;pointer-events:none}
+.oo-360-reticle{position:absolute;top:50%;left:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border:1.5px solid rgba(241,239,234,0.8);border-radius:50%}
+.oo-360-reticle::before,.oo-360-reticle::after{content:"";position:absolute;background:rgba(241,239,234,0.8)}
+.oo-360-reticle::before{top:50%;left:9px;right:9px;height:1.5px;margin-top:-.75px}
+.oo-360-reticle::after{left:50%;top:9px;bottom:9px;width:1.5px;margin-left:-.75px}
+.oo-360-hot{position:absolute;width:15px;height:15px;border-radius:50%;background:#F1EFEA;box-shadow:0 0 0 6px rgba(241,239,234,0.16);transform:translate(-50%,-50%)}
+.oo-360-hot::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid rgba(241,239,234,0.55);animation:oo-ping 2.6s ease-out infinite}
+.oo-360-compass{position:absolute;top:16px;right:16px;display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;background:rgba(20,19,17,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(241,239,234,0.22);color:#F1EFEA;font-size:11px;font-weight:600;letter-spacing:.1em}
+.oo-360-compass::before{content:"";width:9px;height:9px;border-radius:50%;border:1.5px solid #F1EFEA;border-top-color:transparent;animation:oo-spin 3.6s linear infinite}
+.oo-360-hint{position:absolute;right:16px;bottom:16px;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(20,19,17,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(241,239,234,0.2);color:#E9E6DF;font-size:11.5px;font-weight:500;letter-spacing:.02em;white-space:nowrap}
+.oo-360-hint svg{animation:oo-swipe 2.6s ease-in-out infinite}
+@keyframes oo-pan{from{transform:scale(1.14) translateX(-3.5%)}to{transform:scale(1.14) translateX(3.5%)}}
+@keyframes oo-ping{0%{transform:scale(1);opacity:.85}100%{transform:scale(2.1);opacity:0}}
+@keyframes oo-spin{to{transform:rotate(360deg)}}
+@keyframes oo-swipe{0%,100%{transform:translateX(-4px)}50%{transform:translateX(4px)}}
+/* ===== Diferenciais: timeline horizontal ===== */
+.oo-htl{position:relative}
+.oo-htl-track{position:absolute;inset:0;z-index:0;pointer-events:none}
+.oo-htl-line,.oo-htl-progress{position:absolute;border-radius:2px}
+.oo-htl-line{background:rgba(140,136,126,0.28)}
+.oo-htl-progress{background:linear-gradient(90deg,#8C887E,#F1EFEA);transform-origin:left center;transform:scaleX(0)}
+.oo-htl-items{list-style:none;margin:0;padding:0;display:grid;position:relative;z-index:1}
+.oo-htl-item{position:relative;opacity:.5;transition:opacity .55s ease}
+.oo-htl-item[data-on="true"]{opacity:1}
+.oo-htl-dot{position:absolute;width:15px;height:15px;border-radius:50%;background:#57544D;box-shadow:0 0 0 4px #1C1B19;transition:background .45s ease,box-shadow .45s ease,transform .45s cubic-bezier(.2,.9,.3,1.35);transform:scale(.65)}
+.oo-htl-item[data-on="true"] .oo-htl-dot{background:#F1EFEA;box-shadow:0 0 0 4px #1C1B19,0 0 0 6px rgba(241,239,234,0.32);transform:scale(1)}
+.oo-htl-num{font-size:13px;color:#8C887E;font-weight:600;letter-spacing:.14em}
+@media(min-width:900px){
+  .oo-htl-items{grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.5vw,40px)}
+  .oo-htl-item{padding-top:46px}
+  .oo-htl-dot{top:0;left:0}
+}
+@media(max-width:899px){
+  .oo-htl-items{grid-template-columns:1fr;gap:0}
+  .oo-htl-item{padding:0 0 30px 40px}
+  .oo-htl-item:last-child{padding-bottom:0}
+  .oo-htl-dot{left:0;top:5px}
+  .oo-htl-progress{transform-origin:top center;transform:scaleY(0)}
+}
+
+/* ---- cards Turn-Key (2o bloco <style>, meio do <body> do build) ---- */
+.oo-tk-card{transition:border-color .25s ease,transform .25s ease,background .25s ease}
+.oo-tk-card:hover{border-color:rgba(241,239,234,0.3);transform:translateY(-2px);background:#262523}
+.oo-tk-card svg{transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.oo-tk-card:hover svg{transform:translateX(4px)}
+
+/* ---- ADICIONAL: presente nas paginas irmas do mesmo build
+   (deploy/one-office/index.html, deploy/obras-corporativas/index.html),
+   ausente em dist/index.html. Mesmo sistema, componentes extra. ---- */
+/* REVISAR: pode ser especifico da pagina */
+/* Galeria full-width premium (edge-to-edge) */
+.oo-gal-fw{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;width:100%}
+@media(min-width:640px){.oo-gal-fw{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1024px){.oo-gal-fw{grid-template-columns:repeat(4,1fr)}}
+.oo-gal-fw figure{margin:0;aspect-ratio:3/2;overflow:hidden;background:#141311}
+.oo-gal-fw figure img{width:100%;height:100%;object-fit:cover;display:block}
+/* Card Turn-Key */
+.oo-tk-feature{transition:border-color .3s ease,transform .3s ease,background .3s ease,box-shadow .3s ease}
+.oo-tk-feature:hover{border-color:rgba(155,197,61,0.45);transform:translateY(-3px);background:#262523;box-shadow:0 44px 96px -44px rgba(0,0,0,0.8)}
+.oo-tk-feature .oo-arw{transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.oo-tk-feature:hover .oo-arw{transform:translateX(5px)}
+
+/* ════════════════════════════════════════════════════════════════════════
+   OVERRIDES DE MARCA — PROMOTEC (bloco anexado; o motor acima fica intocado)
+   Os seletores a{} / a:hover{} genéricos herdados do One Office pintavam
+   qualquer link (inclusive botões) de bege no repouso e quase-preto no
+   hover, por cima das cores de marca. O inline <style> das páginas já
+   neutraliza o a{}; o a:hover{} só pode ser vencido aqui (mesma
+   especificidade, ordem posterior). Cores de hover reais ficam com os
+   seletores classeados de styles.css.
+   ═══════════════════════════════════════════════════════════════════════ */
+a{color:inherit}
+a:hover{color:inherit}

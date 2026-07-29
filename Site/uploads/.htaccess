@@ -1,0 +1,9 @@
+# Defesa em profundidade: uploads nunca executam como script e a pasta
+# nunca lista arquivos publicamente.
+Options -Indexes
+<FilesMatch "\.(php|php\d|phtml|pl|py|cgi|sh)$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>

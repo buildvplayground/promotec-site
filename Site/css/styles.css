@@ -1,0 +1,642 @@
+/* ============================================================================
+   Promotec Engenharia e Construções — styles.css
+   Design system: design-system/tokens.md (paleta extraída do logo real).
+   Complementa css/motion.css (motor de movimento BuildV, intocado).
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Krub:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+
+/* ---------------------------------------------------------------------- */
+/* 1. TOKENS                                                               */
+/* ---------------------------------------------------------------------- */
+:root{
+  --color-navy:      #14385F;
+  --color-navy-800:  #0F2A45;
+  --color-navy-600:  #1D4A78;
+  --color-red:       #DB0F22;
+  --color-red-dark:  #BF181E;
+  --color-gray:      #878786;
+  --color-gray-600:  #5B6066;
+  --color-gray-200:  #E7E9EB;
+  --color-gray-100:  #F4F5F6;
+  --color-white:     #FFFFFF;
+  --color-charcoal:  #12181F;
+
+  --font-head: 'Inter', system-ui, sans-serif;
+  --font-body: 'Krub', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-btn: 4px;   /* botões: linhas retas, canto só sutilmente arredondado */
+  --radius-pill: 999px;
+  --cut: clamp(32px, 5vw, 72px);   /* altura do recorte diagonal entre seções */
+
+  --header-h: 84px;
+  --ease-house: cubic-bezier(.16,.84,.28,1);
+
+  --shadow-card: 0 18px 44px -20px rgba(20,56,95,0.22);
+  --shadow-card-hover: 0 28px 60px -22px rgba(20,56,95,0.32);
+}
+
+/* ---------------------------------------------------------------------- */
+/* 2. RESET + BASE                                                         */
+/* ---------------------------------------------------------------------- */
+*,*::before,*::after{ box-sizing:border-box; }
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--header-h) + 12px);
+  -webkit-text-size-adjust:100%;
+}
+body{ overflow-x:clip; }
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--color-navy-800);
+  background:var(--color-white);
+  line-height:1.6;
+  font-size:1rem;
+  -webkit-font-smoothing:antialiased;
+}
+img,video{ max-width:100%; height:auto; display:block; }
+svg{ display:block; }
+ul,ol{ margin:0; padding:0; list-style:none; }
+h1,h2,h3,h4,h5,h6{ margin:0; font-family:var(--font-head); color:var(--color-navy); line-height:1.15; }
+p{ margin:0; }
+a{ text-decoration:none; }
+button{ font-family:inherit; }
+input,textarea,select{ font-family:inherit; font-size:1rem; }
+
+/* foco visivel sempre — nunca remover sem substituto (WCAG 2.4.7) */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
+select:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--color-red);
+  outline-offset:2px;
+  border-radius:4px;
+}
+
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+.skip-link{
+  position:absolute; left:-9999px; top:auto;
+  background:var(--color-red); color:#fff; padding:12px 20px;
+  border-radius:0 0 8px 0; z-index:1000; font-weight:600;
+}
+.skip-link:focus{ left:0; top:0; }
+
+/* ---------------------------------------------------------------------- */
+/* 3. TIPOGRAFIA                                                           */
+/* ---------------------------------------------------------------------- */
+/* Hierarquia guiada pelo peso: H1 extrabold(800) > H2 bold(700) >
+   H3/H4 semibold(600) > corpo regular(400); ênfase pontual em 600. */
+h1{ font-weight:800; font-size:clamp(2.2rem, 2.4vw + 1.6rem, 3.6rem); letter-spacing:-0.01em; }
+h2{ font-weight:700; font-size:clamp(1.7rem, 1.6vw + 1.2rem, 2.5rem); letter-spacing:-0.005em; }
+h3{ font-weight:600; font-size:clamp(1.15rem, .6vw + 1rem, 1.4rem); }
+h4{ font-weight:600; font-size:1.05rem; }
+
+.lede{ color:var(--color-gray-600); font-size:1.05rem; line-height:1.7; }
+.bg-dark .lede,.hero .lede{ color:rgba(255,255,255,0.75); }
+
+strong{ font-weight:600; }
+p strong,li strong,.lede strong{ color:var(--color-navy); }
+.bg-dark strong,.hero strong,.footer strong{ color:#fff; }
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:.72rem; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--color-red);
+}
+.bg-dark .eyebrow,.hero .eyebrow{ color:#ff6b78; }
+
+.mono-num{ font-family:var(--font-mono); font-weight:500; }
+
+/* ---------------------------------------------------------------------- */
+/* 4. LAYOUT                                                               */
+/* ---------------------------------------------------------------------- */
+.container{ width:100%; max-width:1200px; margin:0 auto; padding:0 24px; }
+
+.section{ padding:clamp(56px,8vw,104px) 0; position:relative; }
+.section-tight{ padding:clamp(40px,5vw,72px) 0; }
+.section-alt{ background:var(--color-gray-100); }
+.bg-dark{ background:var(--color-navy); color:#fff; }
+.bg-dark h2,.bg-dark h3,.bg-dark h4{ color:#fff; }
+.bg-charcoal{ background:var(--color-charcoal); color:#fff; }
+.bg-charcoal h2,.bg-charcoal h3,.bg-charcoal h4{ color:#fff; }
+
+/* Recortes diagonais entre seções — assinatura visual do site.
+   Hero corta a base; seções escuras cortam o topo com a MESMA inclinação
+   (linhas paralelas). O padding extra compensa a área clipada para o
+   conteúdo nunca encostar no corte. */
+.hero{ clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--cut)), 0 100%); }
+.section.bg-dark,.section.bg-charcoal{
+  clip-path: polygon(0 var(--cut), 100% 0, 100% 100%, 0 100%);
+  padding-top: calc(clamp(56px,8vw,104px) + var(--cut));
+  isolation:isolate;   /* garante que as camadas ::before/::after (z-index:-1) fiquem DENTRO da seção */
+  /* o recorte acontece na seção de baixo e SOBREPÕE a de cima: a cunha do
+     clip revela a cor real da seção anterior (nunca o branco do body) */
+  margin-top: calc(-1 * var(--cut));
+}
+
+/* Fundo com vida nas seções escuras: foto duotone da própria obra (estrutura
+   metálica do Galpão Peron, pré-escurecida em navy) + vinheta radial por cima.
+   Duas camadas em z-index:-1 — acima do bg da seção, abaixo de todo o conteúdo. */
+.section.bg-dark{ --tint-mid:rgba(15,42,69,.60); --tint-strong:rgba(9,25,43,.94); }
+.section.bg-charcoal{ --tint-mid:rgba(14,20,27,.64); --tint-strong:rgba(8,11,15,.95); }
+.section.bg-dark::before,.section.bg-charcoal::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:url('../assets/img/bg/textura-obra.webp') center/cover no-repeat;
+  opacity:.42;
+}
+.section.bg-dark::after,.section.bg-charcoal::after{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:radial-gradient(130% 105% at 50% 8%, var(--tint-mid) 0%, var(--tint-strong) 82%);
+}
+
+/* Marca-d'água do logo em seções claras — cinza único, opacidade leve,
+   encostada/cropada na borda inferior direita (referência: rodapé Maxon).
+   ⚠️ NÃO usar em seção que contenha position:sticky (o overflow:hidden do
+   crop mataria o pin) — na Home, a grade de serviços fica de fora. */
+.section-wm{ overflow:hidden; isolation:isolate; }
+.section-wm::before{
+  content:""; position:absolute; z-index:-1; pointer-events:none;
+  right:-4%; bottom:-16%;
+  width:min(54vw, 760px); aspect-ratio:1747/827;
+  background:url('../assets/logos/logo-watermark.png') center/contain no-repeat;
+  opacity:.07;
+}
+/* variantes de posição (para não repetir o mesmo canto em toda seção) */
+.section-wm.wm-bl::before{ left:-4%; right:auto; }
+.section-wm.wm-tr::before{ top:-16%; bottom:auto; }
+.section-wm.wm-tl::before{ left:-4%; right:auto; top:-16%; bottom:auto; }
+
+.section-head{ max-width:720px; margin-bottom:clamp(28px,4vw,48px); }
+.section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+.section-head h2{ margin-top:14px; }
+.section-head .lede{ margin-top:14px; }
+
+.section-foot{ margin-top:clamp(28px,4vw,44px); }
+
+/* ---------------------------------------------------------------------- */
+/* 5. BOTOES                                                               */
+/* ---------------------------------------------------------------------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--font-head); font-weight:600; font-size:.95rem;
+  padding:15px 26px; border-radius:var(--radius-btn); border:1.5px solid transparent;
+  cursor:pointer; white-space:nowrap; transition:background .22s ease,color .22s ease,
+  border-color .22s ease, transform .16s ease, box-shadow .22s ease;
+  min-height:48px;
+}
+.btn svg{ width:18px; height:18px; transition:transform .3s var(--ease-house); flex:0 0 auto; }
+.btn:hover svg{ transform:translateX(4px); }
+.btn:active{ transform:scale(.975); }
+
+/* hover = inversão de cores (cores sempre explícitas nos estados — o a:hover
+   genérico do motion.css é neutralizado no bloco de overrides dele) */
+.btn-primary{ background:var(--color-red); color:#fff; border-color:var(--color-red); box-shadow:0 14px 30px -12px rgba(219,15,34,.55); }
+.btn-primary:hover{ background:#fff; color:var(--color-red); border-color:var(--color-red); }
+
+.btn-secondary{ background:transparent; color:var(--color-navy); border-color:var(--color-navy); }
+.btn-secondary:hover{ background:var(--color-navy); color:#fff; }
+
+.btn-on-dark{ background:transparent; color:#fff; border-color:rgba(255,255,255,.4); }
+.btn-on-dark:hover{ background:rgba(255,255,255,.12); border-color:#fff; color:#fff; }
+
+.btn-block{ width:100%; }
+.btn-sm{ padding:11px 20px; font-size:.85rem; min-height:40px; }
+
+/* ---------------------------------------------------------------------- */
+/* 6. HEADER + NAV                                                        */
+/* ---------------------------------------------------------------------- */
+.site-header{
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  padding:18px 0; transition:background .35s var(--ease-house),padding .35s var(--ease-house),
+  transform .4s var(--ease-house), border-color .35s ease;
+  border-bottom:1px solid transparent;
+}
+.site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:24px; width:100%; }
+
+.brand{ display:inline-flex; align-items:center; flex:0 0 auto; }
+.brand img{ height:40px; width:auto; transition:height .35s var(--ease-house); }
+.site-header[style*="background: rgba"] .brand img{ height:34px; }
+
+.nav-desktop{ display:none; }
+.nav-desktop ul{ display:flex; align-items:center; gap:6px; }
+.nav-desktop > ul > li{ position:relative; }
+.nav-desktop a[data-nav-link],.nav-desktop button.dropdown-toggle{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:.92rem; font-weight:600; color:#fff; background:none; border:none;
+  padding:11px 16px; border-radius:var(--radius-btn); cursor:pointer;
+  transition:background .2s ease,color .2s ease;
+}
+.nav-desktop a[data-nav-link]:hover,
+.nav-desktop button.dropdown-toggle:hover,
+.nav-desktop li.has-dropdown:hover > button,
+.nav-desktop li.has-dropdown:focus-within > button{
+  background:rgba(255,255,255,.14);
+}
+.nav-desktop a[data-nav-link][aria-current="true"]{ color:#fff; background:rgba(255,255,255,.16); }
+.dropdown-toggle .chev{ width:12px; height:12px; transition:transform .25s ease; }
+.has-dropdown:hover .chev,.has-dropdown:focus-within .chev{ transform:rotate(180deg); }
+
+.dropdown-menu{
+  position:absolute; top:calc(100% + 8px); left:0; min-width:264px;
+  background:#fff; border-radius:var(--radius-md); box-shadow:0 24px 54px -20px rgba(20,56,95,.35);
+  padding:10px; opacity:0; visibility:hidden; transform:translateY(6px);
+  transition:opacity .22s ease,transform .22s var(--ease-house),visibility .22s;
+}
+.has-dropdown:hover .dropdown-menu,
+.has-dropdown:focus-within .dropdown-menu,
+.has-dropdown.is-open .dropdown-menu{
+  opacity:1; visibility:visible; transform:translateY(0);
+}
+.dropdown-menu a{
+  display:block; padding:11px 14px; border-radius:8px; color:var(--color-navy);
+  font-size:.9rem; font-weight:600; transition:background .18s ease,color .18s ease;
+}
+.dropdown-menu a:hover,.dropdown-menu a:focus-visible{ background:var(--color-gray-100); color:var(--color-red); }
+.dropdown-menu a span{ display:block; font-family:var(--font-body); font-weight:400; font-size:.78rem; color:var(--color-gray-600); margin-top:2px; }
+
+/* MEGA MENU de Serviços — painel largo centralizado no header (li fica static
+   para o absolute referenciar o header fixed), 4 cards com foto real da obra. */
+.nav-desktop li.has-mega{ position:static; }
+.dropdown-menu.mega{
+  left:50%; top:calc(100% - 4px); transform:translate(-50%,6px);
+  width:min(940px, calc(100vw - 48px));
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:14px;
+}
+.dropdown-menu.mega::before{ content:""; position:absolute; left:0; right:0; top:-26px; height:26px; } /* ponte de hover botão→painel */
+.has-dropdown:hover .dropdown-menu.mega,
+.has-dropdown:focus-within .dropdown-menu.mega,
+.has-dropdown.is-open .dropdown-menu.mega{ transform:translate(-50%,0); }
+.dropdown-menu.mega a{ padding:10px; }
+.dm-thumb{ display:block; aspect-ratio:3/2; border-radius:6px; overflow:hidden; margin-bottom:10px; background:var(--color-gray-100); }
+.dm-thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .35s var(--ease-house); }
+.dropdown-menu.mega a:hover .dm-thumb img,.dropdown-menu.mega a:focus-visible .dm-thumb img{ transform:scale(1.05); }
+.dm-title{ display:block; font-weight:600; color:var(--color-navy); font-size:.92rem; line-height:1.3; }
+.dm-desc{ display:block; font-family:var(--font-body); font-weight:400; font-size:.78rem; color:var(--color-gray-600); margin-top:3px; }
+.dropdown-menu.mega a:hover .dm-title{ color:var(--color-red); }
+.dropdown-menu.mega a[aria-current="page"] .dm-title{ color:var(--color-red); }
+
+.header-actions{ display:flex; align-items:center; gap:14px; }
+.header-actions .btn{ padding:12px 22px; font-size:.88rem; min-height:42px; }
+
+/* toggle mobile */
+[data-nav-toggle]{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:var(--radius-btn); border:1.5px solid rgba(255,255,255,.5);
+  background:transparent; color:#fff; cursor:pointer;
+}
+[data-nav-toggle] svg{ width:20px; height:20px; }
+
+/* menu mobile off-canvas */
+[data-mobile-menu]{
+  position:fixed; inset:0; z-index:600; display:none;
+  background:var(--color-navy-800); flex-direction:column;
+  padding:22px 24px; overflow-y:auto;
+}
+[data-mobile-menu] .mm-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+[data-mobile-menu] .mm-top img{ height:34px; }
+[data-menu-close]{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:var(--radius-btn); border:1.5px solid rgba(255,255,255,.4);
+  background:transparent; color:#fff; cursor:pointer;
+}
+[data-mobile-menu] nav{ display:flex; flex-direction:column; gap:2px; }
+[data-mobile-menu] nav a{
+  font-size:1.3rem; font-weight:700; color:#fff; padding:14px 4px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+[data-mobile-menu] nav .mm-sub{ padding-left:16px; display:flex; flex-direction:column; }
+[data-mobile-menu] nav .mm-sub a{
+  font-size:1.02rem; font-weight:600; color:rgba(255,255,255,.82); border-bottom:none; padding:10px 4px;
+  display:flex; align-items:center; gap:12px;
+}
+[data-mobile-menu] nav .mm-sub img{
+  width:56px; height:36px; object-fit:cover; border-radius:4px; flex:0 0 auto;
+}
+[data-mobile-menu] .mm-cta{ margin-top:24px; }
+
+/* ---------------------------------------------------------------------- */
+/* 7. HERO                                                                 */
+/* ---------------------------------------------------------------------- */
+.hero{
+  position:relative; min-height:92vh; display:flex; align-items:flex-end;
+  color:#fff; overflow:hidden; padding-top:var(--header-h);
+}
+.hero-page{ min-height:56vh; }
+/* padding extra = altura do recorte diagonal (--cut), para o conteúdo não encostar no corte */
+[data-hero-fx]{ position:relative; z-index:2; width:100%; padding-bottom:calc(clamp(56px,8vw,96px) + var(--cut)); }
+.hero-media{ position:absolute; inset:0; z-index:0; }
+.hero-media img{ width:100%; height:100%; object-fit:cover; }
+.hero-media::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(15,25,38,.42) 0%, rgba(11,23,38,.62) 55%, rgba(9,19,32,.88) 100%);
+}
+.hero-content{ max-width:680px; position:relative; z-index:2; }
+.hero-content h1{ color:#fff; margin-top:16px; }
+.hero-content .lede{ margin-top:18px; max-width:56ch; font-size:1.12rem; }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:32px; }
+
+/* ---------------------------------------------------------------------- */
+/* 8. TIRA DE LOGOS (marquee)                                              */
+/* ---------------------------------------------------------------------- */
+.logos-strip{ padding:44px 0; background:#fff; border-top:1px solid var(--color-gray-200); border-bottom:1px solid var(--color-gray-200); }
+.logos-strip .strip-label{ text-align:center; margin-bottom:22px; color:var(--color-gray-600); font-size:.82rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+.marquee{ overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
+.marquee-track{ display:flex; align-items:center; gap:64px; width:max-content; animation:oo-marquee 42s linear infinite; }
+.marquee:hover .marquee-track{ animation-play-state:paused; }
+.marquee-track img{ height:34px; width:auto; max-width:140px; object-fit:contain; filter:grayscale(1); opacity:.55; transition:filter .25s ease,opacity .25s ease; }
+.marquee-track img:hover{ filter:grayscale(0); opacity:1; }
+
+/* ---------------------------------------------------------------------- */
+/* 9. GRADE DE SERVICOS (Home) — usa data-svc-scene do motor (pin real)    */
+/* ---------------------------------------------------------------------- */
+.svc-grid{ display:grid; gap:22px; margin-top:8px; }
+.card-servico{
+  display:flex; flex-direction:column; background:#fff; border:1px solid var(--color-gray-200);
+  border-radius:var(--radius-md); overflow:hidden; transition:box-shadow .28s ease,transform .28s ease,border-color .28s ease;
+  color:inherit;
+}
+.card-servico:hover{ box-shadow:var(--shadow-card-hover); transform:translateY(-4px); border-color:var(--color-navy); }
+.card-servico .cs-media{ aspect-ratio:4/3; overflow:hidden; background:var(--color-gray-100); }
+.card-servico .cs-media img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.card-servico:hover .cs-media img{ transform:scale(1.06); }
+.card-servico .cs-body{ padding:22px 22px 26px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.cs-num{ font-family:var(--font-mono); font-size:.78rem; color:var(--color-red); font-weight:500; }
+.card-servico h3{ font-size:1.15rem; }
+.card-servico p{ color:var(--color-gray-600); font-size:.92rem; line-height:1.6; }
+.cs-link{ margin-top:auto; padding-top:10px; display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.88rem; color:var(--color-navy); }
+.cs-link svg{ width:16px; height:16px; transition:transform .3s var(--ease-house); }
+.card-servico:hover .cs-link svg{ transform:translateX(4px); }
+
+/* ---------------------------------------------------------------------- */
+/* 10. METADATA BAR (specs de servico)                                     */
+/* ---------------------------------------------------------------------- */
+.spec-bar{ display:grid; grid-template-columns:1fr; gap:0; border:1px solid var(--color-gray-200); border-radius:var(--radius-md); overflow:hidden; background:#fff; }
+@media(min-width:901px){ .spec-bar{ grid-template-columns:repeat(var(--spec-cols,4),1fr); } }
+.spec-bar .spec-item{ border-right:1px solid var(--color-gray-200); }
+.spec-bar .spec-item:last-child{ border-right:none; }
+@media(max-width:900px){ .spec-bar .spec-item{ border-right:none; } }
+.spec-item{ padding:22px 24px; border-bottom:1px solid var(--color-gray-200); }
+.spec-item:last-child{ border-bottom:none; }
+.spec-label{ font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--color-gray-600); display:block; margin-bottom:6px; }
+.spec-value{ font-weight:700; color:var(--color-navy); font-size:1rem; line-height:1.45; }
+
+/* ---------------------------------------------------------------------- */
+/* 11. DIFERENCIAIS (lista com icone)                                      */
+/* ---------------------------------------------------------------------- */
+.diff-list{ display:grid; gap:18px; }
+.diff-item{ display:flex; gap:16px; align-items:flex-start; padding:20px; border-radius:var(--radius-md); background:#fff; border:1px solid var(--color-gray-200); transition:border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.diff-item:hover{ border-color:var(--color-navy); box-shadow:var(--shadow-card); transform:translateY(-2px); }
+.diff-icon{ flex:0 0 auto; width:46px; height:46px; border-radius:12px; background:var(--color-navy); color:#fff; display:flex; align-items:center; justify-content:center; }
+.diff-icon svg{ width:22px; height:22px; }
+.diff-item p{ font-weight:600; color:var(--color-navy); font-size:.98rem; line-height:1.5; margin:0; }
+.bg-dark .diff-item,.bg-charcoal .diff-item{ background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.14); }
+.bg-dark .diff-item p,.bg-charcoal .diff-item p{ color:#fff; }
+.bg-dark .diff-icon,.bg-charcoal .diff-icon{ background:var(--color-red); }
+
+/* split assimetrico: texto+CTA vs lista */
+.split-diff{ display:grid; gap:40px; align-items:start; }
+.split-diff .split-text h2{ margin-top:14px; }
+.split-diff .split-text .lede{ margin-top:16px; }
+.split-diff .split-text .btn{ margin-top:26px; }
+
+/* ---------------------------------------------------------------------- */
+/* 12. PORTFOLIO — grid + lightbox proprio                                 */
+/* ---------------------------------------------------------------------- */
+.portfolio-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+.portfolio-card{
+  position:relative; border-radius:var(--radius-md); overflow:hidden; cursor:pointer;
+  background:var(--color-charcoal); border:0; padding:0; text-align:left; display:block; width:100%;
+  color:#fff; aspect-ratio:4/5;
+}
+.portfolio-card .pf-media{ position:absolute; inset:0; }
+.portfolio-card .pf-media img{ width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+.portfolio-card:hover .pf-media img{ transform:scale(1.07); }
+.portfolio-card .pf-veil{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(10,20,32,0) 32%, rgba(8,17,28,.86) 100%);
+}
+.portfolio-card .pf-body{ position:absolute; left:0; right:0; bottom:0; padding:22px; z-index:2; }
+.portfolio-card .pf-eyebrow{ font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:#ff8791; }
+.portfolio-card h3{ color:#fff; margin-top:8px; font-size:1.2rem; }
+.portfolio-card .pf-meta{ display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
+.portfolio-card .pf-meta small{ color:rgba(255,255,255,.72); font-size:.82rem; }
+.pf-zoom{
+  width:38px; height:38px; border-radius:var(--radius-btn); background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.3); display:flex; align-items:center; justify-content:center;
+  transition:background .25s ease,transform .25s ease;
+}
+.pf-zoom svg{ width:16px; height:16px; color:#fff; }
+.portfolio-card:hover .pf-zoom{ background:var(--color-red); transform:scale(1.08); border-color:var(--color-red); }
+.portfolio-card:focus-visible{ outline:3px solid var(--color-red); outline-offset:3px; }
+
+/* ---------------------------------------------------------------------- */
+/* 13. NUMEROS (setores/clientes reais — data-nums do motor)               */
+/* ---------------------------------------------------------------------- */
+.nums-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(24px,4vw,48px); margin-top:8px; }
+.num-item{ text-align:left; border-left:2px solid var(--color-red); padding-left:clamp(16px,2vw,26px); }
+.num-item .num-value{ font-family:var(--font-mono); font-weight:500; font-size:clamp(3.2rem,5.6vw,5.4rem); color:#fff; line-height:1; display:flex; align-items:baseline; gap:6px; }
+.num-item .num-suffix{ font-size:.5em; color:#ff6b78; }
+.num-item .num-label{ margin-top:14px; color:rgba(255,255,255,.7); font-size:.92rem; max-width:34ch; line-height:1.6; }
+.num-item .num-label strong{ display:block; color:#fff; font-size:1.02rem; margin-bottom:4px; }
+.nums-note{ margin-top:26px; display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.72); font-size:.92rem; }
+.nums-note a{ color:#fff; text-decoration:underline; text-underline-offset:3px; }
+.nums-note a:hover{ color:#ff8791; }
+.live-dot{ width:9px; height:9px; border-radius:50%; background:#4ade80; box-shadow:0 0 0 0 rgba(74,222,128,.55); animation:livePulse 2.2s infinite; flex:0 0 auto; }
+@keyframes livePulse{ 0%{box-shadow:0 0 0 0 rgba(74,222,128,.55)} 70%{box-shadow:0 0 0 10px rgba(74,222,128,0)} 100%{box-shadow:0 0 0 0 rgba(74,222,128,0)} }
+.segments-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:clamp(30px,4vw,44px); }
+.segments-tags span{ font-size:.82rem; font-weight:600; padding:7px 14px; border-radius:var(--radius-btn); background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); color:#fff; }
+
+/* ---------------------------------------------------------------------- */
+/* 14. CTA FINAL — "como funciona" (linha vertical desenhada)              */
+/* ---------------------------------------------------------------------- */
+.how-block{ display:grid; gap:48px; align-items:center; }
+.how-steps{ position:relative; padding-left:52px; }
+.how-steps::before{
+  content:""; position:absolute; left:15px; top:6px; bottom:6px; width:2px;
+  background:rgba(255,255,255,.18);
+}
+.how-line{
+  content:""; position:absolute; left:15px; top:6px; width:2px; height:calc(100% - 12px);
+  background:linear-gradient(180deg,var(--color-red),var(--color-red-dark));
+  transform-origin:top; transition:transform 1.1s var(--ease-house);
+}
+/* estado inicial "invisivel" so existe se o JS confirmar (classe .how-armed);
+   sem JS, a linha e os passos ficam 100% visiveis por padrao (robustez). */
+.how-steps.how-armed .how-line{ transform:scaleY(0); }
+.how-steps.is-on .how-line{ transform:scaleY(1); }
+.how-step{
+  position:relative; padding-bottom:34px;
+  transition:opacity .7s var(--ease-house), transform .7s var(--ease-house);
+}
+.how-steps.how-armed .how-step{ opacity:0; transform:translateY(16px); }
+.how-steps.is-on .how-step{ opacity:1; transform:none; }
+.how-steps.is-on .how-step:nth-child(1){ transition-delay:.18s; }
+.how-steps.is-on .how-step:nth-child(2){ transition-delay:.38s; }
+.how-steps.is-on .how-step:nth-child(3){ transition-delay:.58s; }
+.how-step:last-child{ padding-bottom:0; }
+.how-step .how-dot{
+  position:absolute; left:-52px; top:0; width:32px; height:32px; border-radius:var(--radius-btn);
+  background:var(--color-red); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-mono); font-weight:500; font-size:.85rem; box-shadow:0 0 0 6px var(--color-navy);
+}
+.how-step h4{ color:#fff; font-size:1.08rem; }
+.how-step p{ color:rgba(255,255,255,.72); margin-top:6px; font-size:.94rem; max-width:44ch; }
+.how-cta{ margin-top:30px; }
+
+/* ---------------------------------------------------------------------- */
+/* 15. FOOTER                                                              */
+/* ---------------------------------------------------------------------- */
+.footer{ background:var(--color-charcoal); color:rgba(255,255,255,.72); padding:clamp(48px,7vw,80px) 0 28px; }
+.footer a{ color:rgba(255,255,255,.72); }
+.footer a:hover{ color:#fff; }
+.footer-grid{ display:grid; gap:40px; grid-template-columns:1.4fr 1fr 1fr 1fr; }
+.footer-brand img{ height:38px; margin-bottom:16px; }
+.footer-brand p{ font-size:.9rem; line-height:1.7; max-width:34ch; }
+.footer-col h5{ color:#fff; font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:16px; font-family:var(--font-mono); font-weight:500; }
+.footer-col ul{ display:flex; flex-direction:column; gap:11px; }
+.footer-col a{ font-size:.92rem; }
+.footer-social{ display:flex; gap:10px; margin-top:18px; }
+.footer-social a{
+  width:38px; height:38px; border-radius:var(--radius-btn); border:1px solid rgba(255,255,255,.2);
+  display:flex; align-items:center; justify-content:center; transition:background .2s ease,border-color .2s ease;
+}
+.footer-social a:hover{ background:var(--color-red); border-color:var(--color-red); }
+.footer-social svg{ width:17px; height:17px; }
+.footer-bottom{
+  margin-top:48px; padding-top:24px; border-top:1px solid rgba(255,255,255,.12);
+  display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between;
+  font-size:.82rem;
+}
+.footer-bottom ul{ display:flex; flex-wrap:wrap; gap:20px; }
+
+/* ---------------------------------------------------------------------- */
+/* 16. LIGHTBOX (reaproveita CSS neutro de motion.css via mesmos atributos)*/
+/* ---------------------------------------------------------------------- */
+/* [data-lightbox], [data-lb-*] ja vem estilizado por motion.css — aqui so
+   pequenos ajustes de contador/idioma que nao existiam la. */
+[data-lb-count]{ font-family:var(--font-mono); }
+
+/* ---------------------------------------------------------------------- */
+/* 17. MODULOS LGPD — cookie notice + modal de privacidade                 */
+/* ---------------------------------------------------------------------- */
+.privacy-overlay{
+  position:fixed; inset:0; z-index:900;
+  background:rgba(9,19,32,.82); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  opacity:0; pointer-events:none; transition:opacity .3s ease;
+}
+.privacy-overlay.open{ opacity:1; pointer-events:all; }
+.privacy-modal{
+  background:#fff; border-radius:var(--radius-md); width:100%; max-width:660px; max-height:86vh;
+  display:flex; flex-direction:column; transform:translateY(20px);
+  transition:transform .35s var(--ease-house);
+}
+.privacy-overlay.open .privacy-modal{ transform:translateY(0); }
+.privacy-header{ display:flex; align-items:center; justify-content:space-between; padding:20px 26px; border-bottom:1px solid var(--color-gray-200); flex-shrink:0; }
+.privacy-header h2{ font-size:1.05rem; }
+.privacy-close{ background:none; border:none; cursor:pointer; font-size:22px; color:var(--color-gray-600); padding:6px; line-height:1; border-radius:50%; }
+.privacy-close:hover{ background:var(--color-gray-100); color:var(--color-navy); }
+.privacy-body{ overflow-y:auto; padding:26px; font-size:.86rem; line-height:1.8; color:var(--color-navy-800); }
+.privacy-body h3{ font-size:.86rem; margin:22px 0 6px; color:var(--color-navy); }
+.privacy-body p,.privacy-body ul{ margin-bottom:12px; }
+.privacy-body ul{ padding-left:20px; list-style:disc; }
+
+.cookie-notice{
+  position:fixed; bottom:20px; left:20px; z-index:700;
+  background:var(--color-charcoal); border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius-md); padding:22px 24px; width:100%; max-width:400px;
+  display:flex; flex-direction:column; gap:16px; box-shadow:0 20px 50px -18px rgba(0,0,0,.55);
+  transform:translateY(calc(100% + 24px)); transition:transform .5s var(--ease-house);
+}
+.cookie-notice.show{ transform:translateY(0); }
+.cookie-notice p{ font-size:.84rem; color:rgba(255,255,255,.72); line-height:1.65; margin:0; }
+.cookie-notice p button{
+  background:none; border:none; padding:0; color:var(--color-red); font-size:inherit;
+  font-family:inherit; font-weight:600; cursor:pointer; text-decoration:underline;
+}
+.cookie-actions{ display:flex; gap:10px; }
+.cookie-btn{ flex:1; padding:11px 14px; border-radius:var(--radius-btn); font-family:inherit; font-size:.82rem; font-weight:700; cursor:pointer; white-space:nowrap; text-align:center; border:none; min-height:40px; }
+.cookie-btn--accept{ background:var(--color-red); color:#fff; }
+.cookie-btn--accept:hover{ background:var(--color-red-dark); }
+.cookie-btn--decline{ background:transparent; color:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.22); }
+.cookie-btn--decline:hover{ border-color:#fff; color:#fff; }
+
+/* ---------------------------------------------------------------------- */
+/* 18. PAGINAS DE FORMULARIO (Fornecedores / Trabalhe Conosco)             */
+/* ---------------------------------------------------------------------- */
+.form-page{ padding-top:calc(var(--header-h) + 48px); padding-bottom:clamp(56px,8vw,96px); background:var(--color-gray-100); min-height:70vh; }
+.form-page .page-head{ max-width:560px; margin:0 auto 32px; text-align:center; }
+.form-page .page-head h1{ margin-top:14px; }
+.form-page .page-head p{ margin-top:14px; color:var(--color-gray-600); }
+.form-card{ background:#fff; border-radius:var(--radius-md); border:1px solid var(--color-gray-200); padding:clamp(26px,4vw,40px); width:100%; max-width:560px; margin:0 auto; box-shadow:var(--shadow-card); }
+.form-grid{ display:flex; flex-direction:column; gap:18px; }
+.form-group{ display:flex; flex-direction:column; gap:6px; }
+.form-group label{ font-size:.76rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--color-gray-600); }
+.form-group .req{ color:var(--color-red); }
+.form-group input,.form-group select,.form-group textarea{
+  padding:13px 15px; border:1.5px solid var(--color-gray-200); border-radius:var(--radius-sm);
+  font-size:.95rem; color:var(--color-navy-800); background:#fff; transition:border-color .2s ease; width:100%;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{ outline:none; border-color:var(--color-navy); }
+.form-hint{ font-size:.78rem; color:var(--color-gray-600); }
+.file-label{
+  display:flex; align-items:center; gap:10px; padding:13px 15px; border:1.5px dashed var(--color-gray-200);
+  border-radius:var(--radius-sm); background:var(--color-gray-100); cursor:pointer; font-size:.88rem; color:var(--color-gray-600);
+  transition:border-color .2s ease;
+}
+.file-label:hover{ border-color:var(--color-navy); }
+.file-label svg{ width:18px; height:18px; flex:0 0 auto; color:var(--color-navy); }
+input[type="file"]{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+.form-feedback{ padding:13px 16px; border-radius:var(--radius-sm); font-size:.88rem; display:none; }
+.form-feedback.success{ display:block; background:#f0faf4; border:1px solid #a3d9b1; color:#1a6b35; }
+.form-feedback.error{ display:block; background:#fdf2f2; border:1px solid #e8b4b4; color:#8a2020; }
+.form-page .page-foot{ text-align:center; margin-top:24px; font-size:.85rem; color:var(--color-gray-600); }
+
+/* ---------------------------------------------------------------------- */
+/* 19. RESPONSIVO                                                          */
+/* ---------------------------------------------------------------------- */
+@media(min-width:901px){
+  .nav-desktop{ display:block; }
+  [data-nav-toggle]{ display:none; }
+  .svc-grid{ grid-template-columns:repeat(4,1fr); }
+}
+@media(max-width:900px){
+  .header-actions .btn-primary{ padding:10px 16px; font-size:.82rem; }
+  .svc-grid{ grid-template-columns:repeat(2,1fr); }
+  .portfolio-grid{ grid-template-columns:repeat(2,1fr); }
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+  .spec-bar{ grid-template-columns:1fr !important; }
+  .split-diff{ grid-template-columns:1fr !important; }
+  .how-block{ grid-template-columns:1fr !important; }
+  .nums-grid{ grid-template-columns:1fr; gap:20px; }
+}
+@media(max-width:560px){
+  .svc-grid{ grid-template-columns:1fr; }
+  .portfolio-grid{ grid-template-columns:1fr; }
+  .footer-grid{ grid-template-columns:1fr; gap:32px; }
+  .hero-actions{ flex-direction:column; align-items:stretch; }
+  .hero-actions .btn{ width:100%; }
+  .cookie-actions{ flex-direction:column; }
+  .footer-bottom{ flex-direction:column; align-items:flex-start; }
+  .diff-list{ grid-template-columns:1fr !important; }
+}
+
+/* ---------------------------------------------------------------------- */
+/* 20. PREFERS-REDUCED-MOTION — sobrepõe qualquer animação/transição       */
+/* ---------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important; scroll-behavior:auto !important;
+  }
+  .marquee-track{ animation:none !important; }
+  [data-reveal],[data-rv]{ opacity:1 !important; transform:none !important; filter:none !important; }
+  .how-line{ transform:scaleY(1) !important; }
+  .how-step{ opacity:1 !important; transform:none !important; }
+}
