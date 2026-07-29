@@ -17,10 +17,9 @@
  ],
  "pendencias": [
   "Hospedagem indefinida (Vercel ou Hostinger/WordPress) — site construído como HTML estático (default quando indefinido)",
-  "WhatsApp comercial definitivo — placeholder 5511999999999 em uso em todos os CTAs (constante única em Site/js/app.js)",
+  "WhatsApp comercial — os CTAs agora abrem o popup Merlin (não usam mais wa.me); o número só será necessário se quiserem algum link direto de WhatsApp no site ou no fluxo do próprio Merlin",
   "Confirmar ano de fundação da empresa (2014 na apresentação antiga vs. 2018 na apresentação 2026 — usamos 2018)",
-  "IDs de GTM/GA4/Meta Pixel/Google Ads — não fornecidos, tags não instaladas (módulos LGPD já emitem evento no dataLayer para quando as tags entrarem)",
-  "ID do Merlin Popup — não fornecido, não instalado",
+  "Consentimento LGPD nas tags: o banner de cookies emite cookie_consent no dataLayer — configurar os gatilhos de GA4/Pixel/Ads dentro do painel GTM para respeitar esse evento",
   "Domínio final do site",
   "Secrets de deploy (FTP Hostinger ou projeto Vercel) — aguardando definição de hospedagem",
   "Criar banco MySQL + preencher db-config.php a partir do db-config.example.php (backend PHP funciona em modo degradado sem banco: valida, trata upload e grava em log local uploads/submissions.log)",

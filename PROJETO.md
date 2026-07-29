@@ -54,8 +54,15 @@ Pasta do Drive: https://drive.google.com/drive/u/0/folders/1qXVZGh0Jcdxnmv_200jI
 - [x] 6. Ajustes finais — imagens tratadas para `.webp` (~899MB → ~16MB, -98%),
       responsividade auditada por medição (320/360/375/768/1440px, overflow zero)
 - [x] 7. Módulos LGPD instalados (cookie banner + política de privacidade + páginas
-      de Fornecedores/Trabalhe Conosco + backend PHP) — tags GTM/Merlin puladas
-      (sem IDs do cliente)
+      de Fornecedores/Trabalhe Conosco + backend PHP). **Tags instaladas
+      (29/jul/2026, IDs fornecidos pelo usuário):** GTM `GTM-MV752TH5` (head +
+      noscript nas 9 páginas; container real já dispara GA4/Pixel/LinkedIn/Ads
+      configurados no painel) e **Merlin Popup** (script no head das 9 páginas,
+      todos os CTAs de orçamento convertidos de wa.me → `cta-merlinN`, clique
+      abre o popup — verificado ao vivo no preview, iframe abrindo). Copy da
+      Home ajustada (não menciona mais WhatsApp no CTA final). Nota LGPD: os
+      gatilhos de consentimento devem ser configurados no painel GTM usando o
+      evento `cookie_consent` que o banner já emite.
 - [~] 8. Revisão humana — em andamento. **Rodada 1 (29/jul/2026) aplicada:**
       fontes trocadas para Inter (headings) + Krub (corpo) com hierarquia por peso
       (800/700/600/400); botões com cantos quase retos (4px, sem pill); hover do

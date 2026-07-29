@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- BuildV: GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MV752TH5');</script>
+<!-- /BuildV: GTM -->
 <title>Sobre a Promotec — Engenharia e Construções</title>
 <meta name="description" content="Fundada em 2018, a Promotec desenvolve e executa obras industriais, comerciais e logísticas em Sorocaba e São Paulo capital. Conheça nossa história, missão e valores.">
 <link rel="canonical" href="https://www.promotecconstrutora.com.br/sobre.html">
@@ -16,8 +23,45 @@
   [data-progress]{background:linear-gradient(90deg,#DB0F22,#BF181E)}
 </style>
 <script>document.documentElement.setAttribute('data-motion','on')</script>
+<!-- BuildV: MERLIN -->
+<script src='https://scripts.gomerlin.com.br/merlin.js'></script>
+<script>
+  Merlin.Popup.initFromSource("https://tools.gomerlin.com.br/popup/8584e505-db4e-4447-a9d1-a08049b33b37");
+
+  function waitForElm(selector) {
+    return new Promise(function(resolve) {
+      if (document.querySelector(selector)) {
+        return resolve(document.querySelector(selector));
+      }
+      var observer = new MutationObserver(function() {
+        if (document.querySelector(selector)) {
+          resolve(document.querySelector(selector));
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+    });
+  }
+
+  waitForElm('.merlin-button').then(function() {
+    for (var i = 1; i <= 15; i++) {
+      var el = document.getElementById('cta-merlin' + i);
+      if (el) {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.querySelector('.merlin-button').click();
+        });
+      }
+    }
+  });
+</script>
+<!-- /BuildV: MERLIN -->
 </head>
 <body>
+<!-- BuildV: GTM (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MV752TH5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- /BuildV: GTM (noscript) -->
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <div data-progress></div>
 
@@ -46,7 +90,7 @@
       </ul>
     </nav>
     <div class="header-actions">
-      <a class="btn btn-primary" data-wa-btn="header" data-wa-text="Olá! Gostaria de solicitar um orçamento com a Promotec." href="https://wa.me/5511999999999">
+      <a class="btn btn-primary" id="cta-merlin1" href="#1">
         Solicitar orçamento
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -76,7 +120,7 @@
     <a href="sobre.html">Sobre</a>
   </nav>
   <div class="mm-cta">
-    <a class="btn btn-primary btn-block" data-wa-btn="menu-mobile" data-wa-text="Olá! Gostaria de solicitar um orçamento com a Promotec." href="https://wa.me/5511999999999">Solicitar orçamento</a>
+    <a class="btn btn-primary btn-block" id="cta-merlin2" href="#2">Solicitar orçamento</a>
   </div>
 </div>
 
@@ -92,7 +136,7 @@
           <h1 data-hero-h>Engenharia e construção para operações que não podem parar</h1>
           <p class="lede">Fundada em 2018, a Promotec Engenharia e Construções desenvolve e executa obras industriais, comerciais e logísticas em Sorocaba e São Paulo capital — da concepção à entrega, com gestão integrada em cada etapa do empreendimento.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" data-wa-btn="sobre-hero" data-wa-text="Olá! Gostaria de solicitar um orçamento com a Promotec." href="https://wa.me/5511999999999">
+            <a class="btn btn-primary" id="cta-merlin3" href="#3">
   Solicitar orçamento
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
 </a>
@@ -221,7 +265,7 @@
         <h2 style="color:#fff">Vamos planejar sua obra juntos?</h2>
         <p class="lede">Fale com um engenheiro da Promotec e receba um retorno objetivo sobre prazo, escopo e investimento.</p>
       </div>
-      <a class="btn btn-primary" data-wa-btn="sobre-final" data-wa-text="Olá! Gostaria de solicitar um orçamento com a Promotec." href="https://wa.me/5511999999999">
+      <a class="btn btn-primary" id="cta-merlin4" href="#4">
   Solicitar orçamento
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
 </a>
@@ -263,7 +307,7 @@
         <h5>Contato</h5>
         <ul>
           <li><a href="mailto:andre.jose@promotecconstrutora.com.br">andre.jose@promotecconstrutora.com.br</a></li>
-          <li><a data-wa-btn="footer" data-wa-text="Olá! Gostaria de solicitar um orçamento com a Promotec." href="https://wa.me/5511999999999">Solicitar orçamento</a></li>
+          <li><a id="cta-merlin5" href="#5">Solicitar orçamento</a></li>
           <li>R. Maria Carmen Rodrigues Saker, 90 — Sala 603, Jd. do Paço, Sorocaba - SP</li>
         </ul>
       </div>
