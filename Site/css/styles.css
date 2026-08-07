@@ -32,7 +32,7 @@
   --radius-pill: 999px;
   --cut: clamp(32px, 5vw, 72px);   /* altura do recorte diagonal entre seções */
 
-  --header-h: 96px;
+  --header-h: 104px;
   --ease-house: cubic-bezier(.16,.84,.28,1);
 
   --shadow-card: 0 18px 44px -20px rgba(20,56,95,0.22);
@@ -106,8 +106,8 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 
 .eyebrow{
   display:inline-flex; align-items:center; gap:8px;
-  font-family:var(--font-mono); font-size:.72rem; font-weight:500;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--color-red);
+  font-family:var(--font-mono); font-size:.82rem; font-weight:500;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--color-red);
 }
 .bg-dark .eyebrow,.hero .eyebrow{ color:#ff6b78; }
 
@@ -213,15 +213,15 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 /* ---------------------------------------------------------------------- */
 .site-header{
   position:fixed; top:0; left:0; right:0; z-index:500;
-  padding:18px 0; transition:background .35s var(--ease-house),padding .35s var(--ease-house),
+  padding:14px 0; transition:background .35s var(--ease-house),padding .35s var(--ease-house),
   transform .4s var(--ease-house), border-color .35s ease;
   border-bottom:1px solid transparent;
 }
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:24px; width:100%; }
 
 .brand{ display:inline-flex; align-items:center; flex:0 0 auto; }
-.brand img{ height:60px; width:auto; transition:height .35s var(--ease-house); }
-.site-header[style*="background: rgba"] .brand img{ height:51px; }
+.brand img{ height:76px; width:auto; transition:height .35s var(--ease-house); }
+.site-header[style*="background: rgba"] .brand img{ height:64px; }
 
 .nav-desktop{ display:none; }
 .nav-desktop ul{ display:flex; align-items:center; gap:6px; }
@@ -366,7 +366,7 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 .card-servico .cs-media img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
 .card-servico:hover .cs-media img{ transform:scale(1.06); }
 .card-servico .cs-body{ padding:22px 22px 26px; display:flex; flex-direction:column; gap:8px; flex:1; }
-.cs-num{ font-family:var(--font-mono); font-size:.78rem; color:var(--color-red); font-weight:500; }
+.cs-num{ font-family:var(--font-mono); font-size:.88rem; color:var(--color-red); font-weight:500; }
 .card-servico h3{ font-size:1.15rem; }
 .card-servico p{ color:var(--color-gray-600); font-size:.92rem; line-height:1.6; }
 .cs-link{ margin-top:auto; padding-top:10px; display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:.88rem; color:var(--color-navy); }
@@ -422,7 +422,7 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
   background:linear-gradient(180deg, rgba(10,20,32,0) 32%, rgba(8,17,28,.86) 100%);
 }
 .portfolio-card .pf-body{ position:absolute; left:0; right:0; bottom:0; padding:22px; z-index:2; }
-.portfolio-card .pf-eyebrow{ font-family:var(--font-mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:#ff8791; }
+.portfolio-card .pf-eyebrow{ font-family:var(--font-mono); font-size:.8rem; letter-spacing:.09em; text-transform:uppercase; color:#ff8791; }
 .portfolio-card h3{ color:#fff; margin-top:8px; font-size:1.2rem; }
 .portfolio-card .pf-meta{ display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
 .portfolio-card .pf-meta small{ color:rgba(255,255,255,.72); font-size:.82rem; }
@@ -438,10 +438,10 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 /* ---------------------------------------------------------------------- */
 /* 13. NUMEROS (setores/clientes reais — data-nums do motor)               */
 /* ---------------------------------------------------------------------- */
-.nums-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(24px,4vw,48px); margin-top:8px; }
+.nums-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(24px,4vw,48px); margin-top:8px; }
 .num-item{ text-align:left; border-left:2px solid var(--color-red); padding-left:clamp(16px,2vw,26px); }
 .num-item .num-value{ font-family:var(--font-mono); font-weight:500; font-size:clamp(3.2rem,5.6vw,5.4rem); color:#fff; line-height:1; display:flex; align-items:baseline; gap:6px; }
-.num-item .num-suffix{ font-size:.5em; color:#ff6b78; }
+.num-item .num-suffix{ font-size:.56em; color:#ff6b78; }
 .num-item .num-label{ margin-top:14px; color:rgba(255,255,255,.7); font-size:.92rem; max-width:34ch; line-height:1.6; }
 .num-item .num-label strong{ display:block; color:#fff; font-size:1.02rem; margin-bottom:4px; }
 .nums-note{ margin-top:26px; display:flex; align-items:center; gap:10px; color:rgba(255,255,255,.72); font-size:.92rem; }
@@ -605,6 +605,10 @@ input[type="file"]{ position:absolute; width:1px; height:1px; overflow:hidden; c
   .nav-desktop{ display:block; }
   [data-nav-toggle]{ display:none; }
   .svc-grid{ grid-template-columns:repeat(4,1fr); }
+}
+@media(max-width:1100px){
+  /* 4 big numbers nao cabem em 1 linha abaixo de ~1100px */
+  .nums-grid{ grid-template-columns:repeat(2,1fr); }
 }
 @media(max-width:900px){
   .header-actions .btn-primary{ padding:10px 16px; font-size:.82rem; }
