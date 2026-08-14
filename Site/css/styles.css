@@ -32,7 +32,7 @@
   --radius-pill: 999px;
   --cut: clamp(32px, 5vw, 72px);   /* altura do recorte diagonal entre seções */
 
-  --header-h: 104px;
+  --header-h: 118px;
   --ease-house: cubic-bezier(.16,.84,.28,1);
 
   --shadow-card: 0 18px 44px -20px rgba(20,56,95,0.22);
@@ -234,8 +234,8 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 .site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:24px; width:100%; }
 
 .brand{ display:inline-flex; align-items:center; flex:0 0 auto; }
-.brand img{ height:74px; width:auto; transition:height .35s var(--ease-house); }
-.site-header[style*="background: rgba"] .brand img{ height:62px; }
+.brand img{ height:89px; width:auto; transition:height .35s var(--ease-house); }
+.site-header[style*="background: rgba"] .brand img{ height:74px; }
 
 .nav-desktop{ display:none; }
 .nav-desktop ul{ display:flex; align-items:center; gap:6px; }
@@ -363,7 +363,7 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 .marquee{ overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
 .marquee-track{ display:flex; align-items:center; gap:64px; width:max-content; animation:oo-marquee 42s linear infinite; }
 .marquee:hover .marquee-track{ animation-play-state:paused; }
-.marquee-track img{ height:34px; width:auto; max-width:140px; object-fit:contain; filter:grayscale(1); opacity:.55; transition:filter .25s ease,opacity .25s ease; }
+.marquee-track img{ height:51px; width:auto; max-width:210px; object-fit:contain; filter:grayscale(1); opacity:.55; transition:filter .25s ease,opacity .25s ease; }
 .marquee-track img:hover{ filter:grayscale(0); opacity:1; }
 
 /* ---------------------------------------------------------------------- */
@@ -510,7 +510,7 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 .footer a{ color:rgba(255,255,255,.72); }
 .footer a:hover{ color:#fff; }
 .footer-grid{ display:grid; gap:40px; grid-template-columns:1.4fr 1fr 1fr 1fr; }
-.footer-brand img{ height:44px; width:auto; max-width:100%; margin-bottom:16px; }
+.footer-brand img{ height:62px; width:auto; max-width:100%; margin-bottom:16px; }
 .footer-brand p{ font-size:.9rem; line-height:1.7; max-width:34ch; }
 .footer-col h5{ color:#fff; font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:16px; font-family:var(--font-mono); font-weight:500; }
 .footer-col ul{ display:flex; flex-direction:column; gap:11px; }
