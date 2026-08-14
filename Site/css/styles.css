@@ -104,12 +104,25 @@ strong{ font-weight:600; }
 p strong,li strong,.lede strong{ color:var(--color-navy); }
 .bg-dark strong,.hero strong,.footer strong{ color:#fff; }
 
+/* Eyebrow como tag técnica: mesmo tamanho de fonte, mais presença —
+   fundo com tinta da marca, contorno e barra de acento à esquerda
+   (ecoa a barra vermelha dos big numbers). */
 .eyebrow{
   display:inline-flex; align-items:center; gap:8px;
   font-family:var(--font-mono); font-size:.82rem; font-weight:500;
   letter-spacing:.12em; text-transform:uppercase; color:var(--color-red);
+  background:rgba(219,15,34,.07);
+  border:1px solid rgba(219,15,34,.28);
+  border-left:3px solid var(--color-red);
+  padding:5px 12px; border-radius:var(--radius-btn);
 }
-.bg-dark .eyebrow,.hero .eyebrow{ color:#ff6b78; }
+/* sobre fundo escuro/foto: texto branco, mesma tag, tinta vermelha escurecida */
+.bg-dark .eyebrow,.hero .eyebrow{
+  color:#fff;
+  background:rgba(142,14,21,.48);
+  border-color:rgba(219,15,34,.45);
+  border-left-color:var(--color-red);
+}
 
 .mono-num{ font-family:var(--font-mono); font-weight:500; }
 
@@ -299,7 +312,7 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
   padding:22px 24px; overflow-y:auto;
 }
 [data-mobile-menu] .mm-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
-[data-mobile-menu] .mm-top img{ height:51px; }
+[data-mobile-menu] .mm-top img{ height:51px; width:auto; }
 [data-menu-close]{
   display:inline-flex; align-items:center; justify-content:center;
   width:44px; height:44px; border-radius:var(--radius-btn); border:1.5px solid rgba(255,255,255,.4);
@@ -496,7 +509,7 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
 .footer a{ color:rgba(255,255,255,.72); }
 .footer a:hover{ color:#fff; }
 .footer-grid{ display:grid; gap:40px; grid-template-columns:1.4fr 1fr 1fr 1fr; }
-.footer-brand img{ height:38px; margin-bottom:16px; }
+.footer-brand img{ height:44px; width:auto; max-width:100%; margin-bottom:16px; }
 .footer-brand p{ font-size:.9rem; line-height:1.7; max-width:34ch; }
 .footer-col h5{ color:#fff; font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:16px; font-family:var(--font-mono); font-weight:500; }
 .footer-col ul{ display:flex; flex-direction:column; gap:11px; }
