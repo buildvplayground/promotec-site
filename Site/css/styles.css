@@ -116,11 +116,12 @@ p strong,li strong,.lede strong{ color:var(--color-navy); }
   border-left:3px solid var(--color-red);
   padding:5px 12px; border-radius:var(--radius-btn);
 }
+/* sobre fundo escuro/foto: texto branco, mesma tag, tinta vermelha escurecida */
 .bg-dark .eyebrow,.hero .eyebrow{
-  color:#ff8791;
-  background:rgba(255,107,120,.12);
-  border-color:rgba(255,107,120,.34);
-  border-left-color:#ff8791;
+  color:#fff;
+  background:rgba(142,14,21,.48);
+  border-color:rgba(219,15,34,.45);
+  border-left-color:var(--color-red);
 }
 
 .mono-num{ font-family:var(--font-mono); font-weight:500; }
