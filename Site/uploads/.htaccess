@@ -1,9 +1,40 @@
-# Defesa em profundidade: uploads nunca executam como script e a pasta
-# nunca lista arquivos publicamente.
+# Defesa em profundidade para a árvore de uploads. Estas regras valem também
+# para as subpastas — inclusive uploads/arquivos/, que o form-handler.php cria
+# sozinho no servidor e que portanto pode nascer sem .htaccess próprio.
+#
+# Os blocos vêm em dose dupla porque a sintaxe de bloqueio mudou entre Apache
+# 2.2 e 2.4. Aqui isso não é preciosismo: se a regra falhar, o servidor não
+# acusa erro — ele simplesmente volta a servir os arquivos.
+
 Options -Indexes
-<FilesMatch "\.(php|php\d|phtml|pl|py|cgi|sh)$">
-  Require all denied
+
+# 1) Nada aqui dentro executa como script.
+<FilesMatch "\.(php|php\d|phtml|phps|phar|pl|py|cgi|sh|htaccess|htpasswd)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
 </FilesMatch>
+
+# 2) DADOS PESSOAIS (LGPD) — nunca podem ser baixados por URL.
+# Enquanto o db-config.php não estiver provisionado, o form-handler.php grava
+# cada envio em uploads/submissions.log (nome, e-mail, telefone, empresa).
+# Sem esta regra o arquivo é servido em texto puro para qualquer um que acerte
+# a URL. Quem lê esse log é o admin.php, e ele lê pelo sistema de arquivos —
+# bloquear o acesso HTTP não quebra nada.
+<FilesMatch "\.(log|json|csv|txt|sql|bak|old|ini)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
 <IfModule mod_php.c>
   php_flag engine off
 </IfModule>

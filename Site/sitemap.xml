@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Promotec Engenharia e Construções — sitemap.
+  Lista apenas as 7 páginas indexáveis. /fornecedores/ e /trabalhe-conosco/
+  ficam de fora porque são noindex; /admin.php e /404.html idem.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.promotecconstrutora.com.br/</loc>
+    <lastmod>2026-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://www.promotecconstrutora.com.br/construcao-industrial.html</loc>
+    <lastmod>2026-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://www.promotecconstrutora.com.br/manutencao-industrial.html</loc>
+    <lastmod>2026-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://www.promotecconstrutora.com.br/construcao-galpao.html</loc>
+    <lastmod>2026-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://www.promotecconstrutora.com.br/manutencao-predial.html</loc>
+    <lastmod>2026-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://www.promotecconstrutora.com.br/portfolio.html</loc>
+    <lastmod>2026-08-14</lastmod>
+  </url>
+  <url>
+    <loc>https://www.promotecconstrutora.com.br/sobre.html</loc>
+    <lastmod>2026-08-14</lastmod>
+  </url>
+</urlset>
