@@ -1,0 +1,58 @@
+# Deploy contínuo → Hostinger (SSH/rsync)
+#
+# Dispara em todo push/merge na main que toque em Site/ (ou manualmente via
+# workflow_dispatch). Sincroniza o conteúdo de Site/ com a public_html do
+# domínio principal da conta, via rsync sobre SSH com chave dedicada.
+#
+# Segredos usados (Settings → Secrets and variables → Actions):
+#   HOSTINGER_SSH_HOST  — IP do servidor
+#   HOSTINGER_SSH_PORT  — porta SSH
+#   HOSTINGER_SSH_USER  — usuário da conta
+#   HOSTINGER_SSH_KEY   — chave PRIVADA ed25519 dedicada ao deploy
+#
+# Nunca sobrescreve no servidor: uploads/ (arquivos enviados pelos
+# formulários) e db-config.php (credenciais que só existem no servidor).
+
+name: Deploy Hostinger
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Site/**'
+      - '.github/workflows/deploy-hostinger.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preparar SSH (chave + host key fixada)
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # host key capturada e fixada em 2026-10-01 (TOFU controlado — não usa ssh-keyscan em runtime)
+          echo '[82.25.67.159]:65002 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJi78UFjs/UmDI0xvz+t8spJE90j1JKRZnv5bDyYUEC/' >> ~/.ssh/known_hosts
+
+      - name: Rsync Site/ → public_html
+        run: |
+          rsync -az --delete --itemize-changes \
+            --exclude 'uploads/' \
+            --exclude 'db-config.php' \
+            --exclude 'deploy*.zip' \
+            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.HOSTINGER_SSH_PORT }} -o UserKnownHostsFile=~/.ssh/known_hosts -o StrictHostKeyChecking=yes" \
+            Site/ "${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}:public_html/"
+
+      - name: Smoke test pós-deploy
+        run: |
+          ssh -i ~/.ssh/deploy_key -p ${{ secrets.HOSTINGER_SSH_PORT }} \
+              -o UserKnownHostsFile=~/.ssh/known_hosts -o StrictHostKeyChecking=yes \
+              "${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}" \
+              'test -f public_html/index.html && echo "index.html no ar ✓" && ls public_html | head -20'
