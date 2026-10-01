@@ -3,35 +3,70 @@
  "slug": "promotec",
  "pasta": "promotec",
  "segmento": "Construção e engenharia industrial (construção industrial, manutenção industrial e predial, construção de galpões) — B2B",
- "etapa_atual": 8,
+ "etapa_atual": 9,
  "etapas": [
-  {"n": 1, "nome": "Extrair Drive", "status": "done"},
-  {"n": 2, "nome": "Pastas", "status": "done"},
-  {"n": 3, "nome": "Design system", "status": "done"},
-  {"n": 4, "nome": "Copy", "status": "done"},
-  {"n": 5, "nome": "Front-end", "status": "done"},
-  {"n": 6, "nome": "Ajustes", "status": "done"},
-  {"n": 7, "nome": "Tags", "status": "done"},
-  {"n": 8, "nome": "Revisão", "status": "doing"},
-  {"n": 9, "nome": "Deploy", "status": "blocked"}
+  {
+   "n": 1,
+   "nome": "Extrair Drive",
+   "status": "done"
+  },
+  {
+   "n": 2,
+   "nome": "Pastas",
+   "status": "done"
+  },
+  {
+   "n": 3,
+   "nome": "Design system",
+   "status": "done"
+  },
+  {
+   "n": 4,
+   "nome": "Copy",
+   "status": "done"
+  },
+  {
+   "n": 5,
+   "nome": "Front-end",
+   "status": "done"
+  },
+  {
+   "n": 6,
+   "nome": "Ajustes",
+   "status": "done"
+  },
+  {
+   "n": 7,
+   "nome": "Tags",
+   "status": "done"
+  },
+  {
+   "n": 8,
+   "nome": "Revisão",
+   "status": "done"
+  },
+  {
+   "n": 9,
+   "nome": "Deploy",
+   "status": "doing"
+  }
  ],
  "pendencias": [
-  "Hospedagem indefinida (Vercel ou Hostinger/WordPress) — site construído como HTML estático (default quando indefinido)",
   "WhatsApp comercial — os CTAs agora abrem o popup Merlin (não usam mais wa.me); o número só será necessário se quiserem algum link direto de WhatsApp no site ou no fluxo do próprio Merlin",
   "Confirmar ano de fundação da empresa (2014 na apresentação antiga vs. 2018 na apresentação 2026 — usamos 2018)",
   "Consentimento LGPD nas tags: o banner de cookies emite cookie_consent no dataLayer — configurar os gatilhos de GA4/Pixel/Ads dentro do painel GTM para respeitar esse evento",
-  "Domínio final do site",
-  "Secrets de deploy (FTP Hostinger ou projeto Vercel) — aguardando definição de hospedagem",
   "Criar banco MySQL + preencher db-config.php a partir do db-config.example.php (backend PHP funciona em modo degradado sem banco: valida, trata upload e grava em log local uploads/submissions.log)",
   "Trocar a senha de admin.php (PROJETO_ADMIN_PASS) antes de publicar",
   "Números/métricas reais para seção de estatísticas (anos de mercado, obras entregues) — não fornecidos, não inventados; usamos só o verificável (18 clientes, 8 setores)",
-  "PHP (form-handler.php/admin.php) não foi testado em execução real — não há runtime PHP nesta máquina de desenvolvimento; validar sintaxe/comportamento no servidor ou com PHP local antes de publicar"
+  "PHP (form-handler.php/admin.php) não foi testado em execução real — não há runtime PHP nesta máquina de desenvolvimento; validar sintaxe/comportamento no servidor ou com PHP local antes de publicar",
+  "Criar banco MySQL no hPanel + db-config.php no servidor (formulários de Fornecedores/Trabalhe Conosco e admin.php dependem disso)",
+  "Trocar a senha SSH do hPanel (a atual circulou no chat durante a configuração)"
  ],
  "links": {
   "drive": "https://drive.google.com/drive/u/0/folders/1qXVZGh0Jcdxnmv_200jIW868yn3lGu1a",
   "repo": "https://github.com/dev-buildv/promotec-site",
   "preview": "http://localhost:8791/index.html",
-  "dominio": null
+  "dominio": "https://promotecconstrutora.com.br"
  },
- "atualizado_em": "2026-07-29"
+ "atualizado_em": "2026-10-01"
 }
