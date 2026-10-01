@@ -1,0 +1,6 @@
+# Vercel não executa PHP — não publicar o código-fonte do backend (evita expor
+# admin.php/form-handler.php como texto). Os formulários de Fornecedores/Trabalhe
+# Conosco dependem desse PHP e, portanto, não funcionam na rota Vercel (ver PR).
+# Isto é só para o Vercel; o deploy Hostinger (rsync) ignora este arquivo.
+*.php
+uploads/
