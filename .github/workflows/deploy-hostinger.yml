@@ -48,11 +48,11 @@ jobs:
             --exclude 'db-config.php' \
             --exclude 'deploy*.zip' \
             -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.HOSTINGER_SSH_PORT }} -o UserKnownHostsFile=~/.ssh/known_hosts -o StrictHostKeyChecking=yes" \
-            Site/ "${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}:public_html/"
+            Site/ "${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}:domains/promotecconstrutora.com.br/public_html/"
 
       - name: Smoke test pós-deploy
         run: |
           ssh -i ~/.ssh/deploy_key -p ${{ secrets.HOSTINGER_SSH_PORT }} \
               -o UserKnownHostsFile=~/.ssh/known_hosts -o StrictHostKeyChecking=yes \
               "${{ secrets.HOSTINGER_SSH_USER }}@${{ secrets.HOSTINGER_SSH_HOST }}" \
-              'test -f public_html/index.html && echo "index.html no ar ✓" && ls public_html | head -20'
+              'test -f domains/promotecconstrutora.com.br/public_html/index.html && echo "index.html no ar ✓" && ls domains/promotecconstrutora.com.br/public_html | head -20'
