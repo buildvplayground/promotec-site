@@ -52,6 +52,7 @@
   }
  ],
  "pendencias": [
+  "DNS: apontar promotecconstrutora.com.br para a Hostinger nova (82.25.67.159) — hoje aponta para 185.146.167.200 (hospedagem antiga com a versão antiga do site); após o apontamento, emitir SSL no hPanel",
   "WhatsApp comercial — os CTAs agora abrem o popup Merlin (não usam mais wa.me); o número só será necessário se quiserem algum link direto de WhatsApp no site ou no fluxo do próprio Merlin",
   "Confirmar ano de fundação da empresa (2014 na apresentação antiga vs. 2018 na apresentação 2026 — usamos 2018)",
   "Consentimento LGPD nas tags: o banner de cookies emite cookie_consent no dataLayer — configurar os gatilhos de GA4/Pixel/Ads dentro do painel GTM para respeitar esse evento",
@@ -60,13 +61,14 @@
   "Números/métricas reais para seção de estatísticas (anos de mercado, obras entregues) — não fornecidos, não inventados; usamos só o verificável (18 clientes, 8 setores)",
   "PHP (form-handler.php/admin.php) não foi testado em execução real — não há runtime PHP nesta máquina de desenvolvimento; validar sintaxe/comportamento no servidor ou com PHP local antes de publicar",
   "Criar banco MySQL no hPanel + db-config.php no servidor (formulários de Fornecedores/Trabalhe Conosco e admin.php dependem disso)",
-  "Trocar a senha SSH do hPanel (a atual circulou no chat durante a configuração)"
+  "Trocar a senha SSH do hPanel novamente (a senha atualizada também circulou no chat; o deploy usa só a chave, a senha pode ser trocada sem impacto)"
  ],
  "links": {
   "drive": "https://drive.google.com/drive/u/0/folders/1qXVZGh0Jcdxnmv_200jIW868yn3lGu1a",
   "repo": "https://github.com/dev-buildv/promotec-site",
   "preview": "http://localhost:8791/index.html",
-  "dominio": "https://promotecconstrutora.com.br"
+  "dominio": "https://promotecconstrutora.com.br",
+  "deploy_actions": "https://github.com/buildvplayground/promotec-site/actions/workflows/deploy-hostinger.yml"
  },
  "atualizado_em": "2026-10-01"
 }
