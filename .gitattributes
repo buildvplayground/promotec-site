@@ -1,0 +1,16 @@
+# O repo é editado no Windows (core.autocrlf=true) mas o deploy vai para um
+# servidor Linux/Apache. Estes arquivos são lidos pelo servidor, não pelo
+# navegador — se subirem com CRLF, o comportamento fica dependente da versão
+# do Apache/LiteSpeed. Ficam sempre em LF, mesmo no checkout Windows.
+.htaccess    text eol=lf
+*.htaccess   text eol=lf
+*.php        text eol=lf
+robots.txt   text eol=lf
+sitemap.xml  text eol=lf
+
+# Binários — nunca normalizar.
+*.webp binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.ico  binary

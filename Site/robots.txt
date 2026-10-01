@@ -1,0 +1,28 @@
+# Promotec Engenharia e Construções
+# Arquivo FÍSICO — sobrepõe o robots.txt virtual do WordPress, caso a
+# instalação antiga ainda esteja no public_html.
+
+User-agent: *
+Allow: /
+
+# Envios de formulário e currículos enviados por candidatos — dados
+# pessoais (LGPD). Não devem ser rastreados nem indexados.
+Disallow: /uploads/
+
+# Painel interno de envios.
+Disallow: /admin.php
+
+# Resíduos do WordPress, caso a instalação antiga continue no servidor.
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/
+Disallow: /wp-login.php
+Disallow: /xmlrpc.php
+
+# NOTA: /fornecedores/ e /trabalhe-conosco/ NÃO são bloqueadas aqui de
+# propósito. As duas já têm <meta name="robots" content="noindex, nofollow">
+# e o Google precisa conseguir rastreá-las para enxergar essa tag. Bloquear
+# no robots.txt teria o efeito contrário — a URL poderia acabar indexada
+# sem o Google nunca ler o noindex.
+
+Sitemap: https://www.promotecconstrutora.com.br/sitemap.xml

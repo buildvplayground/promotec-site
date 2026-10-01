@@ -40,3 +40,8 @@ _build_tmp/
 
 # Estado local de tooling
 .claude/
+
+# Artefatos locais de deploy/diagnostico — nunca versionar
+deploy.zip
+deploy*.zip
+_diag/

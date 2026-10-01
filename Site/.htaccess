@@ -1,0 +1,127 @@
+# ===========================================================================
+# Promotec Engenharia e Construções — configuração de servidor
+# Site estático (HTML) + 2 endpoints PHP. O conteúdo desta pasta vai para a
+# RAIZ do public_html. Escrito para Apache 2.4 / LiteSpeed (Hostinger), com
+# fallback para Apache 2.2 nos blocos de bloqueio.
+# ===========================================================================
+
+AddDefaultCharset UTF-8
+
+# Sem listagem de diretório em lugar nenhum.
+# NÃO usamos "+FollowSymLinks" aqui de propósito: parte das hospedagens
+# compartilhadas recusa essa diretiva em .htaccess e devolve 500 no site
+# inteiro. O mod_rewrite abaixo funciona com o FollowSymLinks do vhost.
+Options -Indexes
+
+# ---------------------------------------------------------------------------
+# 1. PÁGINA INICIAL
+# index.html vem ANTES de index.php de propósito: se sobrar uma instalação
+# WordPress no public_html, o index.php dela não sequestra a home do site.
+# ---------------------------------------------------------------------------
+DirectoryIndex index.html index.htm index.php
+
+# ---------------------------------------------------------------------------
+# 2. PÁGINAS DE ERRO
+# Caminho a partir da raiz do domínio — o 404.html usa links absolutos (/...)
+# justamente porque é servido sob qualquer URL.
+# O 403 cai no mesmo lugar: quem tentar /uploads/submissions.log vê a página
+# de "não encontrado" em vez de confirmar que o arquivo existe.
+# ---------------------------------------------------------------------------
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+
+# ---------------------------------------------------------------------------
+# 3. HTTPS + www (canônico: https://www.promotecconstrutora.com.br/)
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Força HTTPS. A 2ª condição evita loop de redirect em hospedagem atrás de
+  # proxy/CDN que termina o TLS antes do Apache.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # Força www APENAS no domínio de produção. Subdomínio temporário da
+  # hospedagem e ambientes de homologação passam intactos.
+  RewriteCond %{HTTP_HOST} ^promotecconstrutora\.com\.br$ [NC]
+  RewriteRule ^ https://www.promotecconstrutora.com.br%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# 4. ARQUIVOS QUE NUNCA PODEM SER BAIXADOS POR URL
+# db-config.php continua legível pelo PHP via require — isto bloqueia apenas
+# o acesso HTTP direto. Os *.log são a 2ª camada de proteção do log de leads
+# (a 1ª está em uploads/.htaccess), para que uma única regra errada não
+# reexponha dados pessoais.
+# Os blocos vêm em dose dupla porque a sintaxe mudou entre Apache 2.2 e 2.4:
+# usar só a de 2.4 num servidor 2.2 derruba o site com 500; usar só a de 2.2
+# num 2.4 sem mod_access_compat faz o mesmo.
+# ---------------------------------------------------------------------------
+<FilesMatch "^(db-config\.php|db-config\.example\.php)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<FilesMatch "\.(log|md|sql|bak|old|ini|yml|yaml|env)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# ---------------------------------------------------------------------------
+# 5. HEADERS DE SEGURANÇA
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  # HSTS: só descomente DEPOIS de confirmar que o HTTPS está no ar e estável.
+  # Uma vez enviado, o navegador respeita por 1 ano — não dá para voltar atrás.
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# 6. COMPRESSÃO
+# .webp/.png já são comprimidos — não entram aqui.
+# ---------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml image/svg+xml
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# 7. CACHE
+# CSS/JS podem ir a 1 ano porque as tags usam cache busting (?v=20260814f):
+# ao mudar o arquivo, muda a URL. HTML e sitemap nunca são cacheados.
+# ---------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault                       "access plus 1 week"
+  ExpiresByType text/html              "access plus 0 seconds"
+  ExpiresByType application/xml        "access plus 0 seconds"
+  ExpiresByType text/xml               "access plus 0 seconds"
+  ExpiresByType text/css               "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp             "access plus 1 year"
+  ExpiresByType image/png              "access plus 1 year"
+  ExpiresByType image/jpeg             "access plus 1 year"
+  ExpiresByType image/svg+xml          "access plus 1 year"
+  ExpiresByType image/x-icon           "access plus 1 year"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+</IfModule>
